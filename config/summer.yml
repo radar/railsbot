@@ -1,0 +1,10 @@
+nick: logga
+channels:
+  - "#logga"
+  - "#rubyonrails"
+  - "#railsbridge"
+database:
+  username: root
+  password:
+  adapter: mysql
+  database: gitpilot
