@@ -7,7 +7,6 @@ class Bot < Summer::Connection
   require 'lookup'
   $LOAD_PATH.unshift(File.dirname(__FILE__) + "/lib")
   require 'api_lookups'
-  THRESHOLD = 3
   # include ChannelEvents
   include ApiLookups
   
