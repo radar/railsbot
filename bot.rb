@@ -96,6 +96,30 @@ class Bot < Summer::Connection
     message += "/#{parts[3..-1].join("/")}" if !parts[3].nil?
     direct_at(reply_to, message, opts[:directed_at])
   end
+  
+  
+  def did_receive_channel_message(sender, channel, message)
+    find_or_create_person(sender[:nick])
+    # need to log before everything else, other commands also trigger messages
+    log(channel, sender[:nick], message)
+    # try to match a non-existent command which might be a tip
+    if m = /^(([^:]+)[:|,])?\s?!([^\s]+)\s?(.*)?/.match(message)
+      cmd_sym = "#{m[3]}_command".to_sym
+      # if we don't respond to this command then it's likely a tip
+      if respond_to?(cmd_sym)
+        if !m[2].nil?
+          send(cmd_sym, sender, channel, m[4], { :directed_at => m[2] })
+        end
+      else
+        tip_command(sender,channel, m[3], { :directed_at => m[2] })
+      end
+    end
+
+    if m = /^(([^:]+)[:|,])?\s?##(.+)/.match(message)
+      send(:lookup_command, sender, channel, m[3], { :directed_at => m[2] })
+    end
+
+  end
 
   private
 
@@ -130,30 +154,8 @@ class Bot < Summer::Connection
     Person.find_or_create_by_nick(nick)
   end
 
-  def did_receive_channel_message(sender, channel, message)
-    find_or_create_person(sender[:nick])
-    # need to log before everything else, other commands also trigger messages
-    log(channel, sender[:nick], message)
-    # try to match a non-existent command which might be a tip
-    if m = /^(([^:]+)[:|,])?\s?!([^\s]+)\s?(.*)?/.match(message)
-      cmd_sym = "#{m[3]}_command".to_sym
-      # if we don't respond to this command then it's likely a tip
-      if respond_to?(cmd_sym)
-        if !m[2].nil?
-          send(cmd_sym, sender, channel, m[4], { :directed_at => m[2] })
-        end
-      else
-        tip_command(sender,channel, m[3], { :directed_at => m[2] })
-      end
-    end
-
-    if m = /^(([^:]+)[:|,])?\s?##(.+)/.match(message)
-      send(:lookup_command, sender, channel, m[3], { :directed_at => m[2] })
-    end
-
-  end
     
 end
 
 
-Bot.new("localhost", "6667")
+Bot.new(ARGV[0])

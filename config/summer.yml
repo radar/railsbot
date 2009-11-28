@@ -1,8 +1,8 @@
 nick: logga
 channels:
   - "#logga"
-  - "#rubyonrails"
-  - "#railsbridge"
+#   - "#rubyonrails"
+#   - "#railsbridge"
 database:
   username: root
   password:
