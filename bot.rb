@@ -25,10 +25,8 @@ class Bot < Summer::Connection
   end
 
   def gitlog_command(sender, reply_to, msg)
-    p "CALLED"
-    p authorized?(sender[:nick])
     return unless authorized?(sender[:nick])
-    `git log -1`.split("\n").first
+    privmsg(`git log -1`.split("\n").first, reply_to)
   end
 
 
@@ -46,7 +44,7 @@ class Bot < Summer::Connection
   end
 
   def join_command(sender, reply_to, msg)
-    join_channel(msg) if authorized?(sender[:nick])
+    join(msg) if authorized?(sender[:nick])
   end
 
   def say_command(sender, reply_to, msg)
@@ -56,16 +54,16 @@ class Bot < Summer::Connection
   end
 
   def part_command(sender, reply_to, msg)
-    leave_channel(msg) if authorized?(sender[:nick])
+    part(msg) if authorized?(sender[:nick])
   end
 
   def help_command(sender, reply_to, msg)
     if authorized?(sender[:nick])
-      if msg.nil?
-        privmsg("A list of all commands can be found at http://rails.loglibrary.com/tips", sender[:nick])
+      if msg.blank?
+        privmsg("A list of all commands can be found at http://frozenplague.net/helpa-usage", sender[:nick])
       else
-        comnand = msg.split(" ")[1]
-        if tip = Tip.find_by_command(command)
+        command = msg.split(" ")[1]
+        if command && tip = Tip.find_by_command(command)
           privmsg(" #{tip.command}: #{tip.description} - #{tip.text}", sender[:nick])
         else  
           privmsg("I could not find that command. If you really want that command, go to http://rails.loglibrary.com/tips/new?command=#{command} and create it!", sender[:nick])
@@ -94,7 +92,8 @@ class Bot < Summer::Connection
 
   def github_command(sender, reply_to, msg, opts={})
     parts = msg.split(" ")
-    message = "http://github.com/#{parts[0]}/#{parts[1]}/tree/#{parts[2].nil? ? 'master' : parts[2]}"
+    message = "http://github.com/#{parts[0]}/#{parts[1]}/"
+    message += "tree/#{parts[2]}" if parts[2]
     message += "/#{parts[3..-1].join("/")}" if !parts[3].nil?
     direct_at(reply_to, message, opts[:directed_at])
   end
@@ -107,12 +106,8 @@ class Bot < Summer::Connection
   end
 
   def direct_at(reply_to, message, who=nil)
-    if who
-      message = who + ": #{message}" 
-      privmsg(message, reply_to)
-    else
-      return message
-    end
+    message = who + ": #{message}" if who
+    privmsg(message, reply_to)
   end
 
   def search(host, sender, msg, reply_to, opts, query_parameter="q")
