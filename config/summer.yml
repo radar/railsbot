@@ -3,6 +3,7 @@ channels:
   - "#logga"
 #   - "#rubyonrails"
 #   - "#railsbridge"
+auto_rejoin: true
 database:
   username: root
   password:
