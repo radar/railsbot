@@ -98,7 +98,7 @@ class Bot < Summer::Connection
   end
   
   
-  def channel_message(sender, channel, message)
+  def channel_message(sender, channel, message, options={})
     find_or_create_person(sender[:nick])
     # need to log before everything else, other commands also trigger messages
     log(channel, sender[:nick], message)
