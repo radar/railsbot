@@ -101,6 +101,13 @@ class Bot < Summer::Connection
     direct_at(reply_to, message, opts[:directed_at])
   end
   
+  def add_command(sender, channel, message, opts={})
+    return unless authorized?(sender[:nick])
+    message = message.split(" ")
+    Tip.find_by_command(message[0]) || Tip.create!(:command => message[0], :text => message[1..-1].join(" "))
+    privmsg("The !#{message[0]} command is now available.", channel == me ? sender[:nick] : channel)
+  end
+  
   
   def channel_message(sender, channel, message, options={})
     find_or_create_person(sender[:nick])
