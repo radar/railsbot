@@ -131,6 +131,8 @@ class Bot < Summer::Connection
     end
 
   end
+  
+  alias_method :private_message, :channel_message
 
   private
 
