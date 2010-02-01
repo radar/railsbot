@@ -91,9 +91,13 @@ class Bot < Summer::Connection
 
   def github_command(sender, reply_to, msg, opts={})
     parts = msg.split(" ")
-    message = "http://github.com/#{parts[0]}/#{parts[1]}/"
-    message += "tree/#{parts[2]}" if parts[2]
-    message += "/#{parts[3..-1].join("/")}" if !parts[3].nil?
+    if parts.empty?
+      message = "http://github.com - Social code hosting using Git"
+    else
+      message = "http://github.com/#{parts[0]}/#{parts[1]}/"
+      message += "tree/#{parts[2]}" if parts[2]
+      message += "/#{parts[3..-1].join("/")}" if !parts[3].nil?
+    end
     direct_at(reply_to, message, opts[:directed_at])
   end
   
