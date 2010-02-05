@@ -14,7 +14,7 @@ CREATE TABLE `constants` (
   `weighting` int(11) default '0',
   `count` int(11) default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4054 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -31,7 +31,23 @@ CREATE TABLE `entries` (
   `weighting` int(11) default '0',
   `count` int(11) default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20985 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `people`
+--
+
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `people` (   
+  `id` int(11) NOT NULL auto_increment,  
+  `name` varchar(255) collate utf8_unicode_ci default NULL,  
+  `email` varchar(255) collate utf8_unicode_ci default NULL,  
+  `authorized` tinyint(1) default '0',  
+  `nick` varchar(255) collate utf8_unicode_ci default NULL,  
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -47,7 +63,7 @@ CREATE TABLE `tips` (
   `text` text,
   `user_id` int(11) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=136 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -68,6 +84,6 @@ CREATE TABLE `users` (
   `remember_token` varchar(40) default NULL,
   `remember_token_expires_at` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 SET character_set_client = @saved_cs_client;
-
+ 
