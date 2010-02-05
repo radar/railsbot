@@ -4,6 +4,22 @@
 -- ------------------------------------------------------
 -- Server version	5.0.51a-3ubuntu5.4
 
+--
+-- Table structure for table `channels`
+--
+
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `channels` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(255) collate utf8_unicode_ci default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+SET character_set_client = @saved_cs_client;
+
+
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 CREATE TABLE `constants` (
