@@ -51,6 +51,24 @@ CREATE TABLE `entries` (
 SET character_set_client = @saved_cs_client;
 
 --
+-- Table structure for table `messages`
+--
+
+DROP TABLE IF EXISTS `messages`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `messages` (
+    `id` int(11) NOT NULL auto_increment,
+    `text` varchar(255) collate utf8_unicode_ci default NULL,
+    `channel_id` int(11) default NULL,
+    `person_id` int(11) default NULL,
+    `created_at` datetime default NULL,
+    `updated_at` datetime default NULL,
+    PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `people`
 --
 
