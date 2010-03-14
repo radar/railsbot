@@ -2,12 +2,9 @@ require 'rubygems' # Suffer.
 require 'summer'
 require 'active_record'
 Dir["lib/models/**/*.rb"].each { |f| require f }
-# Controller for the logga leaf.
 require 'lookup'
 $LOAD_PATH.unshift(File.dirname(__FILE__) + "/lib")
 require 'api_lookups'
-# include ChannelEvents
-
 class Bot < Summer::Connection
   include ApiLookups
   
