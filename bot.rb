@@ -41,6 +41,22 @@ class Bot < Summer::Connection
       privmsg("I could not find that command. If you really want that command, go to http://rails.loglibrary.com/tips/new?command=#{command} and create it!", sender[:nick])
     end
   end
+  
+  def seen_command(sender, reply_to, nick)
+    return unless authorized?(sender[:nick])
+    if sender[:nick].downcase == nick.downcase
+      privmsg("Looked in a mirror recently? Oh? Poor mirror.")
+    else
+      p = Person.find_by_nick(nick)
+      last_chat = p.messages.first(:order => "created_at DESC")
+      time = last_chat.created_at.strftime("%d %B %Y, %H:%M%p")
+      if p
+        privmsg("I last saw #{nick} on ##{last_chat.channel.name} at #{time} (UTC), they said #{last_chat.text.inspect}", reply_to)
+      else
+        privmsg("Who's #{nick}?", reply_to)
+      end
+    end
+  end
 
   def join_command(sender, reply_to, msg)
     join(msg) if authorized?(sender[:nick])
