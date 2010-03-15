@@ -47,8 +47,8 @@ class Bot < Summer::Connection
     else
       p = Person.find_by_nick(nick)
       last_chat = p.messages.first(:order => "created_at DESC")
-      time = last_chat.created_at.strftime("%d %B %Y, %H:%M%p")
-      if p
+      if p && last_chat
+        time = last_chat.created_at.strftime("%d %B %Y, %H:%M%p")
         privmsg("I last saw #{nick} on ##{last_chat.channel.name} at #{time} (UTC), they said #{last_chat.text.inspect}", reply_to)
       else
         privmsg("Who's #{nick}?", reply_to)
