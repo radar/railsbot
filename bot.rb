@@ -43,7 +43,7 @@ class Bot < Summer::Connection
   def seen_command(sender, reply_to, nick)
     return unless authorized?(sender[:nick])
     if sender[:nick].downcase == nick.downcase
-      privmsg("Looked in a mirror recently? Oh? Poor mirror.")
+      privmsg("Looked in a mirror recently? Oh? Poor mirror.", reply_to)
     else
       p = Person.find_by_nick(nick)
       last_chat = p.messages.first(:order => "created_at DESC")
