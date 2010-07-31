@@ -69,21 +69,6 @@ class Bot < Summer::Connection
     part(msg) if authorized?(sender[:nick])
   end
 
-  def help_command(sender, reply_to, msg)
-    if authorized?(sender[:nick])
-      if msg.blank?
-        privmsg("A list of all commands can be found at http://frozenplague.net/helpa-usage", sender[:nick])
-      else
-        command = msg.split(" ")[1]
-        if command && tip = Tip.find_by_command(command)
-          privmsg(" #{tip.command}: #{tip.description} - #{tip.text}", sender[:nick])
-        else  
-          privmsg("I could not find that command. If you really want that command, go to http://rails.loglibrary.com/tips/new?command=#{command} and create it!", sender[:nick])
-        end
-      end
-    end
-  end
-
   def google_command(sender, reply_to, msg, opts={})
     search("http://www.google.com/search", sender, msg, reply_to, opts)
   end
