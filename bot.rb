@@ -35,8 +35,6 @@ class Bot < Summer::Connection
       message = "#{options[:directed_at]}: #{message}" if options[:directed_at]
       privmsg(message, reply_to)
       log(reply_to, "logga", message)
-    else
-      privmsg("I could not find that command. If you really want that command, go to http://rails.loglibrary.com/tips/new?command=#{command} and create it!", sender[:nick])
     end
   end
   
