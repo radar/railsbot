@@ -3,13 +3,13 @@ module ApiLookups
   def update_api_command(sender, reply_to, msg)
     return unless authorized?(sender[:nick])
     privmsg("Updating API index", sender[:nick])
-    APILookup.update
+    Lookup.update
     privmsg("Updated API index! Use the !lookup <method> or !lookup <class> <method> to find what you're after", sender[:nick])
   end
   
   def lookup_command(sender, reply_to, msg, opts={})
     parts = msg.split(" ")[0..-1].map { |a| a.split("#") }.flatten!
-    results=APILookup.search(msg)
+    results=Lookup.search(msg)
     opts.merge!(:reply_to => reply_to)
     show_api_results(results, msg, opts)
   end
@@ -31,7 +31,7 @@ module ApiLookups
   def display_api_url(result, opts={})
     s = opts[:number] ? opts[:number].to_s + ". " : ""
     # if we're a method then show the constant in parans
-    s += "(#{result.constant.name}) " if result.is_a?(APILookup::Entry)
+    s += "(#{result.constant.name}) " if result.is_a?(Lookup::Entry)
     s += "#{result.name} #{result.url}"
     privmsg("#{opts[:directed_at] ? opts[:directed_at] + ":"  : ''} #{s}", opts[:reply_to])
   end    
