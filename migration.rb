@@ -38,7 +38,7 @@ ActiveRecord::Schema.define do
   
   create_table :tips, :force => true do |t|
     t.string :command
-    t.string :text
+    t.text :text
   end
 end
 
