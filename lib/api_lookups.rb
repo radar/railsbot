@@ -3,7 +3,7 @@ module ApiLookups
   def update_api_command(sender, reply_to, msg)
     return unless authorized?(sender[:nick])
     privmsg("Updating API index", sender[:nick])
-    Lookup.update
+    Lookup.update!
     privmsg("Updated API index! Use the !lookup <method> or !lookup <class> <method> to find what you're after", sender[:nick])
   end
   
