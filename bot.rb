@@ -28,7 +28,6 @@ class Bot < Summer::Connection
       message = tip.text
       message = "#{options[:directed_at]}: #{message}" if options[:directed_at]
       privmsg(message, reply_to)
-      log(reply_to, "logga", message)
     end
   end
   
@@ -102,7 +101,7 @@ class Bot < Summer::Connection
   def channel_message(sender, channel, message, options={})
     find_or_create_person(sender[:nick])
     # need to log before everything else, other commands also trigger messages
-    log(channel, sender[:nick], message)
+    # log(channel, sender[:nick], message)
     # try to match a non-existent command which might be a tip
     if m = /^(([^:]+)[:|,])?\s?!([^\s]+)\s?(.*)?/.match(message)
       cmd_sym = "#{m[3]}_command".to_sym
