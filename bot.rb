@@ -117,7 +117,7 @@ class Bot < Summer::Connection
 
     if m = /^(([^:]+)[:|,])?\s?##(.+)/.match(message)
       return unless authorized?(sender[:nick])
-      send(:lookup_command, sender, channel, m[3], { :directed_at => m[2] })
+      # send(:lookup_command, sender, channel, m[3], { :directed_at => m[2] })
     end
 
   end
