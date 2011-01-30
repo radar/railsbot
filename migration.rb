@@ -226,8 +226,6 @@ tips =  Cucumber::Ast::Table.new(
      | example                | Please show us an example of what you want.                                                                                                                                                                                                                                                                          |
 }.strip.split("\n").map { |tip| tip.split("|")[1..-1].map(&:strip) }).raw
 
-"guides", "wfm", "security", "devise", "toolbox", "gemdev", "validations", "callbacks", "heroku", "fake", "dtp", "help", "config"]
-
 
 tips.each do |command, text|
   Tip.create!(:command => command, :text => text)
