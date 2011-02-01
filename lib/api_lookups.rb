@@ -6,13 +6,6 @@ module ApiLookups
     Lookup.update!
     privmsg("Updated API index! Use the !lookup <method> or !lookup <class> <method> to find what you're after", sender[:nick])
   end
-  
-  def lookup_command(sender, reply_to, msg, opts={})
-    parts = msg.split(" ")[0..-1].map { |a| a.split("#") }.flatten!
-    results=Lookup.search(msg)
-    opts.merge!(:reply_to => reply_to)
-    show_api_results(results, msg, opts)
-  end
 
   def show_api_results(results, search_string, opts={})
     if results.empty?
