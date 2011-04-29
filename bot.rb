@@ -20,7 +20,6 @@ class Bot < Summer::Connection
     privmsg(`git log -1`.split("\n").first, reply_to)
   end
 
-
   def tip_command(sender, reply_to, command, options={})
     return unless authorized?(sender[:nick])
     if tip = Tip.find_by_command(command.strip) 
@@ -30,7 +29,7 @@ class Bot < Summer::Connection
       privmsg(message, reply_to)
     end
   end
-  
+
   def seen_command(sender, reply_to, nick)
     return unless authorized?(sender[:nick])
     if sender[:nick].downcase == nick.downcase
@@ -44,6 +43,17 @@ class Bot < Summer::Connection
         privmsg("Who's #{nick}?", reply_to)
       end
     end
+  end
+
+  def gem_command(sender, reply_to, gem_name, opts={})
+    return unless authorized?(sender[:nick])
+    message = "http://www.rubygems.org/gems/#{gem_name}"
+    direct_at(reply_to, message, opts[:directed_at])
+  end
+
+  def gs_command(sender, reply_to, msg, opts={})
+    return unless authorized?(sender[:nick])
+    search("http://www.rubygems.org/search", sender, msg, reply_to, opts, 'search')
   end
 
   def join_command(sender, reply_to, msg)
