@@ -109,6 +109,12 @@ class Bot < Summer::Connection
     privmsg("The !#{message[0]} command is now available.", channel == me ? sender[:nick] : channel)
   end
   
+  def forget_command(sender, channel, message, opts={})
+    return unless authorized?(sender[:nick]) && sender[:nick].downcase == "radar"
+    message = message.split(" ")
+    Tip.find_by_command(message[0]).try(:destroy)
+    privmsg("The !#{message[0]} command has been deleted.", channel == me ? sender[:nick] : channel)
+  end
   
   def channel_message(sender, channel, message, options={})
     if message.respond_to? :force_encoding
