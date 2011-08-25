@@ -1,3 +1,4 @@
+$:.unshift(File.dirname(__FILE__))
 require 'railsbot'
 class Bot < Summer::Connection
   include ApiLookups
