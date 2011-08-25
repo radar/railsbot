@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 require 'railsbot'
 class Bot < Summer::Connection
   include ApiLookups
@@ -117,14 +115,11 @@ class Bot < Summer::Connection
   end
   
   def channel_message(sender, channel, message, options={})
-    if message.respond_to? :force_encoding
-      message.force_encoding('UTF-8')
-    end
     find_or_create_person(sender[:nick])
     # need to log before everything else, other commands also trigger messages
     # log(channel, sender[:nick], message)
     # try to match a non-existent command which might be a tip
-    if m = message.match( /^(([^:]+?)[:|,¡-𯿿]?)?\s*!([^\s]+)\s?(.*)?/u )
+    if m = /^(([^:]+)[:|,])?\s?!([^\s]+)\s?(.*)?/.match(message)
       cmd_sym = "#{m[3]}_command".to_sym
       # if we don't respond to this command then it's likely a tip
       if respond_to?(cmd_sym)
@@ -136,7 +131,7 @@ class Bot < Summer::Connection
       end
     end
 
-    if m = message.match( /^(([^:]+?)[:|,¡-𯿿]?)?\s*##\s*(.+)/u )
+    if m = /^(([^:]+)[:|,])?\s*##\s*(.+)/.match(message)
       return unless authorized?(sender[:nick])
       send(:lookup_command, sender, channel, m[3], { :directed_at => m[2] })
     end
