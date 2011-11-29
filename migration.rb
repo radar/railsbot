@@ -219,7 +219,8 @@ tips =  Cucumber::Ast::Table.new(
      | eieo                   | Please show us your expected input and output. By providing this, it makes it easier for us to understand what you're trying to do.                                                                                                                                                                                  |
      | indent                 | Two spaces is *the* standard indentation for Ruby. Please always use two-space indentation. Tabs are evil. See http://www.caliban.org/ruby/rubyguide.shtml#indentation                                                                                                                                               |
      | mlb                    | Multi-lined blocks should use `do` and `end` rather than curly braces.                                                                                                                                                                                                                                               |
-     | example                | Please show us an example of what you want.                                                                                                                                                                                                                                                                          |
+     | example                | Please show us an example of what you want. 
+     | rspecbook              | A great book to help understand the testing workflow, http://pragprog.com/book/achbd/the-rspec-book
 }.strip.split("\n").map { |tip| tip.split("|")[1..-1].map(&:strip) }).raw
 
 
