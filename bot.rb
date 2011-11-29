@@ -90,7 +90,7 @@ class Bot < Summer::Connection
   end
 
   def github_command(sender, reply_to, msg, opts={})
-    parts = msg.split(" ")
+    parts = msg.split(/[\s\/]/)
     if parts.empty?
       message = "http://github.com - Social code hosting using Git"
     else
