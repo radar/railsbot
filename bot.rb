@@ -78,7 +78,7 @@ class Bot < Summer::Connection
   alias :g_command :google_command 
 
   def gg_command(sender, reply_to, msg, opts={})
-    search("http://www.letmegooglethatforyou.com/", sender, msg, reply_to, opts)
+    search("http://lmgtfy.com/", sender, msg, reply_to, opts)
   end
 
   def railscast_command(sender, reply_to, msg, opts={})
