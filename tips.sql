@@ -220,5 +220,6 @@
  220 | forem                  | The best Rails 3.1 Forum engine. Ever. http://github.com/radar/forem
  221 | to_param               | Use to_param on your model to generate URLs such as /users/blah rather than /users/2 - http://stackoverflow.com/a/2577050/15245
  222 | <%Q                    | <%Q is an error in RDoc parsing. It should be <%=. See this thread for more information: http://groups.google.com/group/rubyonrails-docs/browse_thread/thread/bc1ae76aa8179406
-(220 rows)
+ 223 | hartl                  | Ruby on Rails Tutorial by Michael Hartl (Updated for 3.2) - http://ruby.railstutorial.org/ruby-on-rails-tutorial-book?version=3.2
+(221 rows)
 
