@@ -104,6 +104,7 @@ class Bot < Summer::Connection
   def add_command(sender, channel, message, opts={})
     return unless authorized?(sender[:nick])
     message = message.split(" ")
+    return if message.empty?
     Tip.find_by_command(message[0]) || Tip.create!(:command => message[0], :text => message[1..-1].join(" "))
     privmsg("The !#{message[0]} command is now available.", channel == me ? sender[:nick] : channel)
   end
