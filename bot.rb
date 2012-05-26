@@ -5,9 +5,10 @@ class Bot < Summer::Connection
   
   def did_start_up
     ActiveRecord::Base.establish_connection(config['database'])
+    auth_command
   end
 
-  def auth_command(sender, reply_to, msg)
+  def auth_command(*args)
     privmsg("identify #{config['nickserv_password']}", "nickserv")
   end
 
