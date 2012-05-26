@@ -7,7 +7,10 @@ class Bot < Summer::Connection
     ActiveRecord::Base.establish_connection(config['database'])
   end
 
-  # before_filter :check_for_new_day
+  def auth_command(sender, reply_to, msg)
+    privmsg("identify #{config['nickserv_password']}", "nickserv")
+  end
+
   def authorize_command(sender, reply_to, msg)
     return unless authorized?(sender[:nick]) && sender[:nick].downcase == "radar"
     p = Person.find_or_create_by_nick(msg.downcase)
