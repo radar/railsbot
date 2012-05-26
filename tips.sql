@@ -129,7 +129,7 @@ COPY tips (id, command, text) FROM stdin;
 64	paperclip	http://www.thoughtbot.com/projects/paperclip/ - A file upload plugin for Rails. w/ example http://github.com/anathematic/paperclip_example/tree/master
 65	attachment_fu	http://github.com/technoweenie/attachment_fu/tree/master - A file upload plugin for Rails.
 66	rboard	http://github.com/radar/rboard - A forum system built in Rails. It's compatible with Rails 2.2 and includes internationalization support.
-67	fucktard	Dear sir, I am not of high opinion of your intelligence.
+67	fucktard	Dear sir, I am not of high opinion regarding your intelligence.
 68	camel	I would rather mate with a camel than listen to you bitching, go google your issue and stop being a gibbon!
 69	cock	you must be compensating for having a very small penis, otherwise it escapes my why you would be such a giant cock in public!
 70	flame	look my texteditor is better than yours STFU
