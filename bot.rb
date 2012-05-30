@@ -140,6 +140,11 @@ class Bot < Summer::Connection
       send(:lookup_command, sender, channel, m[3], { :directed_at => m[2] })
     end
 
+    if m = /http:\/\/pastebin.com/.match(message)
+      privmsg("Hi #{sender[:nick]}. We in #rubyonrails would really appreciate it if you did not use pastebin during your time with us.", sender[:nick])
+      privmsg("Pastebin is not good because it loads slowly for most, has ads which are distracting and has terrible formatting. Please use Gist (http://gist.github.com) or Pastie (http://pastie.org) instead. Thanks!", sender[:nick])
+    end
+
   end
   
   alias_method :private_message, :channel_message
