@@ -1,34 +1,9 @@
---
--- PostgreSQL database dump
---
-
-SET statement_timeout = 0;
-SET client_encoding = 'SQL_ASCII';
-SET standard_conforming_strings = off;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-SET escape_string_warning = off;
-
-SET search_path = public, pg_catalog;
-
-SET default_tablespace = '';
-
-SET default_with_oids = false;
-
---
--- Name: tips; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
 CREATE TABLE tips (
     id integer NOT NULL,
     command character varying(255),
     text text
 );
 
-
---
--- Name: tips_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
 
 CREATE SEQUENCE tips_id_seq
     START WITH 1
@@ -37,31 +12,6 @@ CREATE SEQUENCE tips_id_seq
     NO MINVALUE
     CACHE 1;
 
-
---
--- Name: tips_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE tips_id_seq OWNED BY tips.id;
-
-
---
--- Name: tips_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('tips_id_seq', 308, true);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE tips ALTER COLUMN id SET DEFAULT nextval('tips_id_seq'::regclass);
-
-
---
--- Data for Name: tips; Type: TABLE DATA; Schema: public; Owner: -
---
 
 COPY tips (id, command, text) FROM stdin;
 1	twonklist	http://twonklist.com - A place to name and shame the less desirable people of the world.
@@ -129,7 +79,6 @@ COPY tips (id, command, text) FROM stdin;
 64	paperclip	http://www.thoughtbot.com/projects/paperclip/ - A file upload plugin for Rails. w/ example http://github.com/anathematic/paperclip_example/tree/master
 65	attachment_fu	http://github.com/technoweenie/attachment_fu/tree/master - A file upload plugin for Rails.
 66	rboard	http://github.com/radar/rboard - A forum system built in Rails. It's compatible with Rails 2.2 and includes internationalization support.
-67	fucktard	Dear sir, I am not of high opinion regarding your intelligence.
 68	camel	I would rather mate with a camel than listen to you bitching, go google your issue and stop being a gibbon!
 69	cock	you must be compensating for having a very small penis, otherwise it escapes my why you would be such a giant cock in public!
 70	flame	look my texteditor is better than yours STFU
@@ -263,7 +212,6 @@ COPY tips (id, command, text) FROM stdin;
 198	validations	The Active Record Validations and Callbacks Guide - http://guides.rubyonrails.org/active_record_validations_callbacks.html - Written by Jaime Iniesta
 199	callbacks	The Active Record Validations and Callbacks Guide - http://guides.rubyonrails.org/active_record_validations_callbacks.html - Written by Jaime Iniesta
 200	tabcomplete	If you type a few letters of another user's name and then press tab, if you have a proper client, it'll autocomplete towards their name. You might have to press tab more than once to get there though.
-201	pbsucks	Pastebin sucks! Use http://gist.github.com or http://pastie.org please!
 202	restart	"Have you tried turning it off and on again?" - Have you tried stopping and starting your application again? Any modifications to files in config (except routes.rb) or lib requires a restart. Please try restarting your application.
 207	whypbsucks	Pastebin sucks because it loads slowly, has ads which are distracting and has terrible formatting. Please use Gist (http://gist.github.com) or Pastie (http://pastie.org).
 204	generators	http://guides.rubyonrails.org/generators.html - Generators guide written by Jose Valim and Ryan Bigg
@@ -301,8 +249,6 @@ COPY tips (id, command, text) FROM stdin;
 237	Radar	Ryan "Radar" Bigg. Author of "Rails 3 in Action" (See: !r3ia). Blogs at http://ryanbigg.com
 238	helpa	Stack overflow at line: 0
 239	sixthsense	I see dumb people
-240	deryl	Use pastebin again. I dare you.
-241	deryldoucette	Deryl is one of the developers for RVM, wrote https://github.com/wayneeseguin/rvm-test and https://github.com/dtf-gems/dtf - Don't use paste*.* for sharing. He hates it! Use https://gist.github.com and no you do not need an account to use gist! Have a great day!
 242	pebcak	Problem Exists Between Keyboard And Chair
 243	commands	https://github.com/radar/railsbot/blob/master/tips.sql
 244	tips	Just the tips: https://github.com/radar/railsbot/blob/master/tips.sql
@@ -370,18 +316,102 @@ COPY tips (id, command, text) FROM stdin;
 306	lod	ಠ_ಠ
 307	bidoof	:B
 308	paste	Please do not paste code to the channel. It makes it hard to read and respond, especially if everyone does it. Use https://gist.github.com to share your code and errors. Thank you!
+309	peblak	Problem Exists Between Leopard And Chair
+310	t4nkd	He "forgets" about things.
+311	imfeelinglucky	{nick}: how unfortunate, you're not.
+312	gmrnzi	please learn to use the English language in a socially acceptable and understandable manner
+313	ping	pong
+314	putang	As if!
+315	facepaw	Brah, dat not cool. Even da furries not be down with that!
+316	furry	If you really want to know, wikipedia has the safest explaination. (Slightly NSFW in Utah) http://en.wikipedia.org/wiki/Furry_fandom Be afraid. Be very afraid.
+317	popcorn	http://i.imgur.com/tyViD.gif
+318	cookie	Congratulations! You have earned a delicious, fresh-made cookie. :)
+319	entitled	If there's a problem with an OSS project, you can either help out, or act like a self-entitled, whiney (man|woman)-child.
+320	debugger	Need to debug ruby 1.9.2/1.9.3 apps? See 'debugger' - A fork of ruby-debug19 that works on 1.9.2 and 1.9.3 http://t.co/AI4m5tQP
+321	debug	Need to debug Ruby apps? Debug like the pros with Kernel#puts - http://ruby-doc.org/core-1.9.3/Kernel.html#method-i-puts
+322	mine	http://gifsoup.com/webroot/animatedgifs/31288_o.gif
+323	lart	If you have your copy of Rails 3 In Action handy, please close it, pick it up with both hands and hit yourself in the face.
+324	stupidity	Think about how stupid the average person is. Then realize that half the people on Earth are even stupider than that.
+325	morning	"If anyone loudly blesses their neighbor early in the morning, it will be taken as a curse." - Proverbs 27:14
+326	Looking	for rails hosting? See http://railshosting.org then fill in your requirements and get list back! Look Ma! Simplicity!
+327	hosting	Looking for rails hosting? See http://railshosting.org then fill in your requirements and get list back! Look Ma! Simplicity!
+328	peblac	Problem Existing Between Leopard And Chair. http://xkcd.com/1031/
+329	prefix	Please remember to address people by prefixing your message with their name if they've done the same to you. This will (usually) notify the person know that there's a specific message waiting for them.
+330	naming-conventions	Ruby and Rails have a common naming convention for everything from variables to models and controllers. For an excellent cheatsheet, see: http://itsignals.cascadia.com.au/?p=7
+331	angermanagement	https://p.twimg.com/Ap7Req3CEAAttWc.png
+332	whyphpsucks	http://me.veekun.com/blog/2012/04/09/php-a-fractal-of-bad-design/
+333	query	Querying with ActiveRecord: http://guides.rubyonrails.org/active_record_querying.html
+334	afy	http://www.youtube.com/watch?v=sWS-FoXbjVI
+335	httpcodes	http://www.codyfauser.com/2008/7/4/rails-http-status-code-to-symbol-mapping
+336	httpstatuses	Rails maps HTTP status codes to symbols: http://www.codyfauser.com/2008/7/4/rails-http-status-code-to-symbol-mapping
+337	typeracer	improve your typing speed and accuracy at http://typeracer.com
+338	butthurt	If you're feeling butthurt over some response in the channel, please complete our form at http://www.flickr.com/photos/8311021@N03/4291833398/ so we can take immediate action. Thank you!
+339	spacenotenter	The enter key should not be used as a space bar. Lines on IRC can be up to 400 characters long.
+340	routes-topdown	Routes are matched from the top down in config/routes.rb. Please read the note in this section of the routing guide: http://guides.rubyonrails.org/routing.html#crud-verbs-and-actions, as well as the rest of this guide.
+341	tabs	Two spaces is *the* standard indentation for Ruby. Please always use two-space indentation. Tabs are evil. See http://www.caliban.org/ruby/rubyguide.shtml#indentation
+342	coolstory	Cool story, bro.
+343	sudo	{nick}: Okay.
+344	lod?	ಠ_ಠ
+345	fancylod	ಠ_ರೃ
+346	batman	epochwolf is batman, Spaceghostc2c is robin
+347	robin	Spaceghostc2c is robin, epochwolf is batman
+348	alfred	who is alfred?
+349	thoughts?	here be dragons
+350	rule1	Do your research before hand. Your question may be answerable with a quick Google search or by simply experimenting. If you're using a method in Rails, look it up in the API Docs or in the Official Guides.
+351	rule2	If you've tried Googling, explain what terms you've tried to use so people can better help you.
+352	rule3	Clearly explain what is happening and create a Gist (http://gist.github.com) or Pastie (http://pastie.org) of the code that is causing the problem you are encountering, as well as any useful output like stacktraces. A "Full Trace" as opposed to the default "Application Trace" is preferred.
+353	rule4	Do not use any service that is not Pastie or Gist to post code. Pastebin, for example has a tiny font and it has ads on it which cause the page to load slowly. Other paste services generally look like crap.
+354	rule5	Saying that something "doesn't work" is completely useless to the people who are trying to help you. Please show all available information you have that indicates to you that something doesn't work. (remember to use http://gist.github.com for code/error messages)
+355	rule6	Remember that using English is preferable, as the majority of people in the channel speak it. Asking in other languages may give you a response, but English is best.
+356	rule7	Anything more than 2 lines goes in a Gist (http://gist.github.com) or a Pastie (http://pastie.org). Spamming the channel with walls of text is not welcome.
+357	rule8	Treat people in a considerate manner, as they are volunteering their time to help you. If you're being annoying you may be muted by one of the channel ops.
+358	rule9	Do not use excessive punctuation. This includes question marks (?), exclamation marks (!) and ellipsis (...).
+359	rule10	Do not beg / plead with people to help you. This includes asking questions like "Any ideas?" after posting your original question.
+360	rule11	Do not repeat your question every 5 minutes expecting somebody to answer it. If you do not get a reply after the first time perhaps posting your question on StackOverflow (http://stackoverflow.com) would help you. Linking to the question in the channel after you've posted it is OK.
+361	rule12	Do not PM members of the channel without first asking if that is OK.
+362	rule34	Rule 34 is a science fiction novel by Charles Stross.
+363	rule69	Method for estimating an investment's doubling time. See http://en.wikipedia.org/wiki/Rule_of_72
+364	noodleimplements	Quick, I need a tub of vaseline and a ladder!
+366	direct	Please direct messages at people when they direct messages at you.
+367	rule0	Radar is the GodKing of #rubyonrails. Obey him and all shall go well.
+368	yuno	ლ(ಠ_ಠლ)
+369	synergy	Okay, we can make this work! {nick}: you go get the vaseline. I need to find the extension ladder and the extra long ethernet cables
+370	rule64	Don't get too good at what you don't like doing.
+371	rule65	It's worth taking time to increase your effectiveness
+372	rule42	Being first is more important than being best.
+373	railsdevisecancan	RailsApp has a tutorial for how to use Rails 3.2.x, CanCan, Devise, and Twitter Bootstrap. See http://railsapps.github.com/tutorial-rails-bootstrap-devise-cancan.html
+374	liskov	If it looks like a duck, quacks like a duck, but needs batteries - you probably have the wrong abstraction.
+375	progit	For those looking to learn git, the free community book is located at http://progit.org/book/
+376	rubyspec	The ISO/IEC now has a working specification for the Ruby Language (ISO/IEC 30170:2012). Please see http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=59579
+377	goodquestions	Want an example of awesome question asking? Follow this *actual* question as a pattern for getting assistance! This level of question-asking will yield the best results: http://bit.ly/IqKz8d - Thank you!
+201	pbsucks	Pastebin sucks! Use Gist (http://gist.github.com) instead, please!
+378	deryl	Deryl is one of the developers for RVM, wrote https://github.com/wayneeseguin/rvm-test and https://github.com/dtf-gems/dtf - Don't use paste*.* for sharing. He hates it! Use https://gist.github.com and no you do not need an account to use gist! Have a great day!
+379	dhh	David Heinemeier Hansson, creator of rails: http://en.wikipedia.org/wiki/David_Heinemeier_Hansson
+380	play	Don't be afraid to play with your code. Everything from routes to different code to do things. This is how we learn best, generally! Plus, it keeps it fun! WOOT!
+381	learnrails	For an excellent Roadmap for learning Rails, see this article http://techiferous.com/2010/07/roadmap-for-learning-rails/ and follow along! As with anything worth learning, if you *really* want to learn Rails, be prepared to invest TIME & EFFORT!
+382	stalk	I'm stalking you
+383	reading	To really learn how to use Ruby, and to use Rails, requires significant amounts of time, energy, and self-education. Self Education means actually reading, and attempting to comprehend the thoughts expressed. This takes time. This takes Critical Thinking, which means "How does this apply to what I want to do?"
+384	mass-assignment	http://guides.rubyonrails.org/security.html#mass-assignment
+385	bang	Bang, Bang! On the door baby!
+386	EW-Antipattern	epochwolf is an anti-pattern
+387	Veejay	I really don't have a clue to be honest.
+388	iwanttolearnruby	For a whole slew of sites for learning Ruby, which is a tremendous aid to learning Rails, see http://iwanttolearnruby.com
+389	rubycheatsheet	For a solid cheat sheet of common Ruby idioms and syntax see ZenSpider's cheatsheet available at http://www.zenspider.com/Languages/Ruby/QuickRef.html
+390	hai	hai
+391	broken	as Its broken? Now you get too keep both halves! Enjoy!
+393	por	POR or PORA stands for Plain Old Ruby | Plain Old Ruby App, meaning a non rails application. (Yes, Ruby works without Rails!)
+394	poro	PORO stands for Plain Old Ruby Object, usually means a non-activerecord model (Yes, models work without activerecord!)
+396	singleton	A singleton method is a method/action applied to a specific object or class. Like: myobj = Object.new ; def myobj.my_method ; end my_method is applied *only* to the myobj object. Remember that classes in Ruby are _also_ objects in their own right! In ruby everything is an object!
+397	fucktard	Dear sir, I am not of high opinion regarding your intelligence.
+398	instructions	The docs! The Instructions! You *did* read them... RIGHT??
+399	RTFM	INSTRUCTIONS, MOTHER FUCKER, DO YOU READ THEM?
+400	hell	Hell is other people's code.
+401	HalcyonicStorm	It's that kid from New Jersy.
+402	scaffolding	Don't use scaffolding except for learning purposes. While the code it writes works, it is far better for you to learn HOW it works and WHY, than to use it in production. If oyu ever have to change it, you won't know what you're doing.
+403	using-gist	How to use Gist properly: https://github.com/radar/guides/blob/master/using-gist.md
+404	Horofox	see !butthurt
+405	GeekOnCoffee	Someone epochwolf worked with in a past life.
+406	LART	Definition: Luser Attitude Readjustment Tool, to lart someone, use !lart.
+407	offtopic	Your question is considered off topic for #rubyonrails, you'll have to ask in a different chatroom.
+408	querying	http://guides.rubyonrails.org/active_record_querying.html - ActiveRecord Querying Guide by Ryan Bigg
 \.
-
-
---
--- Name: tips_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY tips
-    ADD CONSTRAINT tips_pkey PRIMARY KEY (id);
-
-
---
--- PostgreSQL database dump complete
---
-
