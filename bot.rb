@@ -141,7 +141,7 @@ class Bot < Summer::Connection
       send(:lookup_command, sender, channel, m[3], { :directed_at => m[2] })
     end
 
-    if m = /http:\/\/(|www\.)pastebin.com\/(?!raw)/.match(message)
+    if m = /http:\/\/.*?pastebin.com\/(?!raw)/.match(message)
       dumbass = @pastebin_dumbass[sender[:nick]]
       p Time.now.to_i - 300
       if dumbass.nil? || dumbass < Time.now.to_i - 300
