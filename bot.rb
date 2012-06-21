@@ -141,9 +141,8 @@ class Bot < Summer::Connection
       send(:lookup_command, sender, channel, m[3], { :directed_at => m[2] })
     end
 
-    if m = /http:\/\/.*?pastebin.com\/(?!raw)/.match(message)
+    if m = /http:\/\/.*?pastebin.com\/(?!raw)/i.match(message)
       dumbass = @pastebin_dumbass[sender[:nick]]
-      p Time.now.to_i - 300
       if dumbass.nil? || dumbass < Time.now.to_i - 300
         privmsg("Hi #{sender[:nick]}. We in #rubyonrails would really appreciate it if you did not use pastebin during your time with us.", channel)
         privmsg("Pastebin is not good because it loads slowly for most, has ads which are distracting and has terrible formatting. Please use Gist (http://gist.github.com) or Pastie (http://pastie.org) instead. Thanks!", channel)
