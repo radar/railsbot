@@ -99,7 +99,8 @@ class Bot < Summer::Connection
     if parts.empty?
       message = "http://github.com - Social code hosting using Git"
     else
-      message = "http://github.com/#{parts[0]}/#{parts[1]}/"
+      message = "http://github.com/#{parts[0]}/"
+      message += "#{parts[1]}/" if parts[1]
       message += "tree/#{parts[2]}" if parts[2]
       message += "/#{parts[3..-1].join("/")}" if !parts[3].nil?
     end
