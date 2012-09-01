@@ -33,6 +33,7 @@ class Bot < Summer::Connection
       message = tip.text
       message = "#{options[:directed_at]}: #{message}" if options[:directed_at]
       privmsg(message, reply_to)
+      log({ :nick => config[:nick]}, reply_to, message)
     end
   end
 
