@@ -165,8 +165,7 @@ class Bot < Summer::Connection
     channel = Channel.find_or_create_by_name(channel.gsub("#", ''))
     person = Person.find_or_create_by_nick(sender)
     channel.messages.create!(:person => person
-                             :text => message,
-                             :created_at => Time.now.utc)
+                             :text => message)
   end
 
   def direct_at(reply_to, message, who=nil)
