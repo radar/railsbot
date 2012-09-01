@@ -125,16 +125,16 @@ class Bot < Summer::Connection
   def channel_message(sender, channel, message, options={})
     find_or_create_person(sender[:nick])
     # try to match a non-existent command which might be a tip
-    tip_me
-    pastebin_sucks
-    log(channel, sender, message)
+    tip_me(sender, channel, message)
+    pastebin_sucks(sender, channel, message)
+    log(sender, channel, message)
   end
 
   alias_method :private_message, :channel_message
 
   private
 
-  def tip_me
+  def tip_me(sender, channel, message)
     if m = /^(([^:]+)[:|,])?\s?!([^\s]+)\s?(.*)?/.match(message)
       cmd_sym = "#{m[3]}_command".to_sym
       # if we don't respond to this command then it's likely a tip
@@ -148,7 +148,7 @@ class Bot < Summer::Connection
     end
   end
 
-  def pastebin_sucks
+  def pastebin_sucks(sender, channel, message)
     if m = /http:\/\/.*?pastebin.com\/(?!raw)/i.match(message)
       dumbass = @pastebin_dumbass[sender[:nick]]
       if dumbass.nil? || dumbass < Time.now.to_i - 300
@@ -161,7 +161,7 @@ class Bot < Summer::Connection
     end
   end
 
-  def log(channel, sender, message)
+  def log(sender, channel, message)
     channel = Channel.find_or_create_by_name(channel.gsub("#", ''))
     channel.messages.create!(:person => Person.find_or_create_by_nick(sender), :text => message)
   end
