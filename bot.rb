@@ -164,7 +164,7 @@ class Bot < Summer::Connection
   def log(sender, channel, message)
     channel = Channel.find_or_create_by_name(channel.gsub("#", ''))
     person = Person.find_or_create_by_nick(sender)
-    channel.messages.create!(:person => person
+    channel.messages.create!(:person => person,
                              :text => message)
   end
 
