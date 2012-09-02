@@ -42,6 +42,7 @@ class Bot < Summer::Connection
     if sender[:nick].downcase == nick.downcase
       privmsg("Looked in a mirror recently? Oh? Poor mirror.", reply_to)
     else
+      p = Person.find_by_nick(nick)
       last_chat = p.messages.first(:order => "created_at DESC") if p
       if last_chat
         time = last_chat.created_at.strftime("%d %B %Y, %H:%M%p")
