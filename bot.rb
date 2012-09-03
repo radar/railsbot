@@ -43,7 +43,12 @@ class Bot < Summer::Connection
       privmsg("Looked in a mirror recently? Oh? Poor mirror.", reply_to)
     else
       p = Person.find_by_nick(nick)
-      last_chat = p.messages.first(:order => "created_at DESC") if p
+      if p
+        last_chat = p.messages.includes(:channel).
+                    where("channels.hidden = ?", false).
+                    first(:order => "messages.created_at DESC")
+      end
+
       if last_chat
         time = last_chat.created_at.strftime("%d %B %Y, %H:%M%p")
         privmsg("I last saw #{nick} on ##{last_chat.channel.name} at #{time} (UTC), they said #{last_chat.text.inspect}", reply_to)
