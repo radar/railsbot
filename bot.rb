@@ -1,7 +1,7 @@
 $:.unshift(File.dirname(__FILE__))
 require 'railsbot'
 class Bot < Summer::Connection
-  
+
   def did_start_up
     ActiveRecord::Base.establish_connection(config['database'])
     auth_command
@@ -28,7 +28,7 @@ class Bot < Summer::Connection
 
   def tip_command(sender, reply_to, command, options={})
     return unless authorized?(sender[:nick])
-    if tip = Tip.find_by_command(command.strip) 
+    if tip = Tip.find_by_command(command.strip)
       tip.text.gsub!("{nick}", sender[:nick])
       message = tip.text
       message = "#{options[:directed_at]}: #{message}" if options[:directed_at]
@@ -87,7 +87,7 @@ class Bot < Summer::Connection
     search("http://www.google.com/search", sender, msg, reply_to, opts)
   end
 
-  alias :g_command :google_command 
+  alias :g_command :google_command
 
   def gg_command(sender, reply_to, msg, opts={})
     search("http://lmgtfy.com/", sender, msg, reply_to, opts)
@@ -113,7 +113,15 @@ class Bot < Summer::Connection
     end
     direct_at(reply_to, message, opts[:directed_at])
   end
-  
+
+  def railsapi_command(sender, reply_to, msg, opts={})
+    search("http://api.rubyonrails.org", sender, msg, reply_to, opts)
+  end
+
+  def rubyapi_command(sender, reply_to, msg, opts={})
+    search("http://ruby-doc.org/search.html", sender, msg, reply_to, opts)
+  end
+
   def add_command(sender, channel, message, opts={})
     return unless authorized?(sender[:nick])
     message = message.split(" ")
@@ -121,14 +129,14 @@ class Bot < Summer::Connection
     Tip.find_by_command(message[0]) || Tip.create!(:command => message[0], :text => message[1..-1].join(" "))
     privmsg("The !#{message[0]} command is now available.", channel == me ? sender[:nick] : channel)
   end
-  
+
   def forget_command(sender, channel, message, opts={})
     return unless authorized?(sender[:nick]) && sender[:nick].downcase == "radar"
     message = message.split(" ")
     Tip.find_by_command(message[0]).try(:destroy)
     privmsg("The !#{message[0]} command has been deleted.", channel == me ? sender[:nick] : channel)
   end
-  
+
   def channel_message(sender, channel, message, options={})
     find_or_create_person(sender[:nick])
     # try to match a non-existent command which might be a tip
@@ -200,8 +208,6 @@ class Bot < Summer::Connection
   def find_or_create_person(nick)
     Person.find_or_create_by_nick(nick)
   end
-
-    
 end
 
 
