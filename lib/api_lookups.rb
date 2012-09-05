@@ -6,7 +6,7 @@ module ApiLookups
     Lookup.update!
     privmsg("Updated API index! Use the !lookup <method> or !lookup <class> <method> to find what you're after", sender[:nick])
   end
-  
+
   def lookup_command(sender, reply_to, msg, opts={})
     parts = msg.split(" ")[0..-1].map { |a| a.split("#") }.flatten!
     results=Lookup.search(msg)
@@ -34,6 +34,5 @@ module ApiLookups
     s += "(#{result.constant.name}) " if result.is_a?(Lookup::Entry)
     s += "#{result.name} #{result.url}"
     privmsg("#{opts[:directed_at] ? opts[:directed_at] + ":"  : ''} #{s}", opts[:reply_to])
-  end    
-  
+  end
 end
