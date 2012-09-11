@@ -1,5 +1,6 @@
 $:.unshift(File.dirname(__FILE__))
 require 'railsbot'
+require 'iconv'
 class Bot < Summer::Connection
   
   def did_start_up
@@ -171,6 +172,7 @@ class Bot < Summer::Connection
   def log(sender, channel, message)
     channel = Channel.find_or_create_by_name(channel.gsub("#", ''))
     person = Person.find_or_create_by_nick(sender)
+    message = ::Iconv.conv('UTF-8//IGNORE', 'UTF-8', message + ' ')[0..-2]
     channel.messages.create!(:person => person,
                              :text => message)
   end
