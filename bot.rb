@@ -1,6 +1,10 @@
 $:.unshift(File.dirname(__FILE__))
 require 'railsbot'
 require 'iconv'
+require 'json'
+require 'httparty'
+require 'nokogiri'
+
 class Bot < Summer::Connection
   
   def did_start_up
@@ -114,7 +118,33 @@ class Bot < Summer::Connection
     end
     direct_at(reply_to, message, opts[:directed_at])
   end
-  
+
+  def ghstatus_command(sender, reply_to, msg, opts={})
+    response = JSON.parse(HTTParty.get('https://status.github.com/status.json').parsed_response)
+
+    updates = response["days"].select { |d| d["date"] == "Today" && d["status"] == "majorproblem" }.reverse
+    unless updates.empty?
+      last_update = response["last_updated"]
+      html = Nokogiri::HTML(updates.first["message"])
+      html.css(".when").each { |node| node.remove }
+      update = html.text.split("\n").first.strip
+
+      message = "They said (at #{last_update}): #{update} - https://status.github.com"
+    end
+
+    case response["status"]
+      when "minorproblem"
+        privmsg("GitHub is currently experiencing MINOR PROBLEMS. #{message}", reply_to) 
+      when "majorproblem"
+        privmsg("GitHub is currently experiencing MAJOR PROBLEMS. #{message}", reply_to)
+      else
+        privmsg("GitHub battle station is fully operational.", reply_to)
+        if updates
+          privmsg("There were problems earlier, however. #{message}", reply_to)
+        end
+    end
+  end
+
   def add_command(sender, channel, message, opts={})
     return unless authorized?(sender[:nick])
     message = message.split(" ")
