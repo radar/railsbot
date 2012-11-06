@@ -63,6 +63,24 @@ class Bot < Summer::Connection
     end
   end
 
+  def since_command(sender, reply_to, nick)
+    return unless authorized?(sender[:nick])
+    p = Person.find_by_nick(nick)
+    if p
+      first_message_date = p.messages.order("id ASC").first.created_at.to_date
+      first_log_date = Message.order(:id).first.created_at.to_date
+      duration = (Date.today - first_message_date).to_i
+      message =  "I first saw #{nick} on #{first_message_date}. They've been around now for #{duration} days."
+      if first_message_date == first_log_date
+        message += "However, this was the first day I started logging, so they could've been around longer than that."
+      end
+    else
+      message = "Who is #{nick}?"
+    end
+
+    privmsg(message, reply_to)
+  end
+
   def gem_command(sender, reply_to, gem_name, opts={})
     return unless authorized?(sender[:nick])
     message = "http://www.rubygems.org/gems/#{gem_name}"
