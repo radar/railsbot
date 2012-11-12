@@ -140,7 +140,7 @@ class Bot < Summer::Connection
   def ghstatus_command(sender, reply_to, msg, opts={})
     response = JSON.parse(HTTParty.get('https://status.github.com/status.json').parsed_response)
 
-    updates = response["days"].select { |d| d["date"] == "Today" && d["status"] == "majorproblem" }.reverse
+    updates = response["days"].select { |d| d["date"] == "Today" && (%w(majorproblem minorproblem).include?(d["status"]))}.reverse
     unless updates.empty?
       last_update = response["last_updated"]
       html = Nokogiri::HTML(updates.first["message"])
