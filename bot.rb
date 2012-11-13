@@ -66,13 +66,17 @@ class Bot < Summer::Connection
   def since_command(sender, reply_to, nick)
     return unless authorized?(sender[:nick])
     p = Person.find_by_nick(nick)
-    if p && p.messages.exists?
-      first_message_date = p.messages.order("id ASC").first.created_at.to_date
-      first_log_date = Message.order(:id).first.created_at.to_date
-      duration = (Date.today - first_message_date).to_i
-      message =  "I first saw #{nick} on #{first_message_date}. They've been around now for #{duration} days."
-      if first_message_date == first_log_date
-        message += "However, this was the first day I started logging, so they could've been around longer than that."
+    if p
+      if p.messages.exists?
+        first_message_date = p.messages.order("id ASC").first.created_at.to_date
+        first_log_date = Message.order(:id).first.created_at.to_date
+        duration = (Date.today - first_message_date).to_i
+        message =  "I first saw #{nick} on #{first_message_date}. They've been around now for #{duration} days."
+        if first_message_date == first_log_date
+          message += " However, this was the first day I started logging, so they could've been around longer than that."
+        end
+      else
+        message = "I know that name, but I don't know whenfrom. They haven't been around for quite a while."
       end
     else
       message = "Who is #{nick}?"
