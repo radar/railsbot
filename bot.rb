@@ -66,7 +66,7 @@ class Bot < Summer::Connection
   def since_command(sender, reply_to, nick)
     return unless authorized?(sender[:nick])
     p = Person.find_by_nick(nick)
-    if p
+    if p && p.messages.exists?
       first_message_date = p.messages.order("id ASC").first.created_at.to_date
       first_log_date = Message.order(:id).first.created_at.to_date
       duration = (Date.today - first_message_date).to_i
