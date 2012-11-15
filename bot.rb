@@ -192,6 +192,10 @@ class Bot < Summer::Connection
 
   alias_method :private_message, :channel_message
 
+  def count_command(sender, channel, message, opts={})
+    privmsg("I know of #{Tip.count} ways to entertain you.", channel)
+  end
+
   private
 
   def tip_me(sender, channel, message)
