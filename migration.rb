@@ -1,4 +1,6 @@
-require 'rubygems'
+# encoding: UTF-8
+
+require "rubygems"
 
 gem 'json', '~> 1.4.6'
 require 'benchmark'
