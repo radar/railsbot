@@ -34,10 +34,18 @@ class Bot < Summer::Connection
   def tip_command(sender, reply_to, command, options={})
     return unless authorized?(sender[:nick])
     if tip = Tip.find_by_command(command.strip) 
-      tip.text.gsub!("{nick}", sender[:nick])
-      tip.text.gsub!("{target}", options[:directed_at]) if options[:directed_at]
       message = tip.text
-      message = "#{options[:directed_at]}: #{message}" if options[:directed_at]
+      
+      message.gsub!("{nick}", sender[:nick])
+      
+      if options[:directed_at]
+        if tip.text =~ /{target}/
+          message.gsub!("{target}", options[:directed_at])
+        else
+          message = "#{options[:directed_at]}: #{message}"
+        end
+      end
+      
       privmsg(message, reply_to)
       log({ :nick => config[:nick]}, reply_to, message)
     end
