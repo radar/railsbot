@@ -152,28 +152,16 @@ class Bot < Summer::Connection
   end
 
   def ghstatus_command(sender, reply_to, msg, opts={})
-    response = JSON.parse(HTTParty.get('https://status.github.com/status.json').parsed_response)
-
-    updates = response["days"].select { |d| d["date"] == "Today" && (%w(majorproblem minorproblem).include?(d["status"]))}.reverse
-    unless updates.empty?
-      last_update = response["last_updated"]
-      html = Nokogiri::HTML(updates.first["message"])
-      html.css(".when").each { |node| node.remove }
-      update = html.text.split("\n").first.strip
-
-      message = "They said (at #{last_update}): #{update} - https://status.github.com"
-    end
+    response = HTTParty.get('https://status.github.com/api/last-message.json').parsed_response
+    message = response["body"] + " (https://status.github.com/)"
 
     case response["status"]
-      when "minorproblem"
+      when "minor"
         privmsg("GitHub is currently experiencing MINOR PROBLEMS. #{message}", reply_to) 
-      when "majorproblem"
+      when "major"
         privmsg("GitHub is currently experiencing MAJOR PROBLEMS. #{message}", reply_to)
       else
-        privmsg("GitHub battle station is fully operational.", reply_to)
-        if updates
-          privmsg("There were problems earlier, however. #{message}", reply_to)
-        end
+        privmsg("GitHub status: #{message}", reply_to)
     end
   end
 
