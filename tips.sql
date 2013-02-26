@@ -414,4 +414,5 @@ COPY tips (id, command, text) FROM stdin;
 406	LART	Definition: Luser Attitude Readjustment Tool, to lart someone, use !lart.
 407	offtopic	Your question is considered off topic for #rubyonrails, you'll have to ask in a different chatroom.
 408	querying	http://guides.rubyonrails.org/active_record_querying.html - ActiveRecord Querying Guide by Ryan Bigg
+409	rails4	There is no release date set for Rails 4 yet. It will be out when it is ready. Please be patient. For more information, follow @dhh on Twitter.
 \.
