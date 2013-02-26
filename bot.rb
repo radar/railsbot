@@ -7,6 +7,8 @@ require 'nokogiri'
 
 class Bot < Summer::Connection
 
+  BALL8_TIPS = YAML.load(File.read(File.join(File.dirname(__FILE__), 'config', '8ball.yml')))
+
   def did_start_up
     ActiveRecord::Base.establish_connection(config['database'])
     auth_command
@@ -186,6 +188,10 @@ class Bot < Summer::Connection
     message = message.split(" ")
     Tip.find_by_command(message[0]).try(:destroy)
     privmsg("The !#{message[0]} command has been deleted.", channel == me ? sender[:nick] : channel)
+  end
+
+  define_method "8ball_command" do |sender, channel, message, opts={}|
+    direct_at(channel, BALL8_TIPS[rand(BALL8_TIPS.size)], opts[:directed_at])
   end
 
   def channel_message(sender, channel, message, options={})
