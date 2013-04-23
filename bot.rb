@@ -250,7 +250,7 @@ class Bot < Summer::Connection
 
   def log(sender, channel, message, type='message')
     channel = Channel.find_or_create_by(:name => channel.gsub("#", ''))
-    person = Person.find_or_create_by(:nick => sender)
+    person = Person.find_or_create_by(:nick => sender[:nick])
     message = ::Iconv.conv('UTF-8//IGNORE', 'UTF-8', message + ' ')[0..-2]
     channel.messages.create!(:person => person,
                              :text => message,
