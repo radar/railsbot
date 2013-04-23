@@ -1,6 +1,7 @@
+# encoding: utf-8
 require 'rubygems'
 
-gem 'json', '~> 1.4.6'
+gem 'json', '~> 1.7.7'
 require 'benchmark'
 require 'active_support/core_ext/class/attribute_accessors'
 require 'active_record'
