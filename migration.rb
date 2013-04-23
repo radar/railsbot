@@ -12,6 +12,7 @@ ActiveRecord::Base.establish_connection(config["database"])
 ActiveRecord::Schema.define do
   create_table :channels, :force => true do |t|
     t.string :name
+    t.boolean :hidden, :default => false
   end
    
   create_table :constants, :force => true do |t|
@@ -33,10 +34,11 @@ ActiveRecord::Schema.define do
     t.string :type
     t.integer :channel_id
     t.integer :person_id
+    t.timestamps
   end
    
   create_table :people, :force => true do |t|
-    t.string :nick
+    t.string :nick, :hostname
     t.boolean :authorized, :default => false
   end
   
