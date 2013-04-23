@@ -263,12 +263,6 @@ class Bot < Summer::Connection
     Person.find_by_nick_and_authorized(nick.downcase, true)
   end
 
-  # def check_for_new_day_filter(host, sender, msg, reply_to, opts)
-  #   @day = Day.find_or_create_by_date(Date.today) if @today!=Date.today
-  #   @today = Date.today
-  #   @day.increment!("chats_count")
-  # end
-
   def find_or_create_person(nick)
     Person.find_or_create_by_nick(nick)
   end
