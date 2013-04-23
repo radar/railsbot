@@ -208,6 +208,16 @@ class Bot < Summer::Connection
     privmsg("I know of #{Tip.count} ways to entertain you.", channel)
   end
 
+  def mode(sender, channel, *mode)
+    log(sender, channel, mode.join(" "), "mode")
+  end
+
+  def kick(sender, channel, victim, message)
+    # message contains channel name for whatever reason
+    reason = message.split(" ")[1..-1].join(" ")
+    log(sender, channel, "#{sender[:nick]} kicked #{victim}: #{reason}", "kick")
+  end
+
   private
 
   def tip_me(sender, channel, message)
@@ -239,12 +249,13 @@ class Bot < Summer::Connection
     end
   end
 
-  def log(sender, channel, message)
+  def log(sender, channel, message, type='message')
     channel = Channel.find_or_create_by_name(channel.gsub("#", ''))
     person = Person.find_or_create_by_nick(sender)
     message = ::Iconv.conv('UTF-8//IGNORE', 'UTF-8', message + ' ')[0..-2]
     channel.messages.create!(:person => person,
-                             :text => message)
+                             :text => message,
+                             :type => type)
   end
 
   def direct_at(reply_to, message, who=nil)

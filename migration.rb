@@ -29,6 +29,7 @@ ActiveRecord::Schema.define do
    
   create_table :messages, :force => true do |t|
     t.string :text
+    t.string :type
     t.integer :channel_id
     t.integer :person_id
   end
