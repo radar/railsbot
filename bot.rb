@@ -195,7 +195,6 @@ class Bot < Summer::Connection
   end
 
   def channel_message(sender, channel, message, options={})
-    find_or_create_person(sender[:nick])
     # try to match a non-existent command which might be a tip
     tip_me(sender, channel, message)
     pastebin_sucks(sender, channel, message)
@@ -272,10 +271,6 @@ class Bot < Summer::Connection
 
   def authorized?(nick)
     Person.find_by_nick_and_authorized(nick.downcase, true)
-  end
-
-  def find_or_create_person(nick)
-    Person.find_or_create_by_nick(nick)
   end
 end
 
