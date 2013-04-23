@@ -48,7 +48,7 @@ ActiveRecord::Schema.define do
   end
 end
 
-Dir["lib/models/*.rb"].each { |f| require f }
+Dir["lib/models/*.rb"].each { |f| require_relative f }
 
 ["radar","workmad3","toretore","augustl","Remear","SuperTaz","eladmeidar","ReinH","Hates_","JayM","mark[oz]","anathematic","pjammer","confounds","dpickett","camonz","crankharder","fowlduck","Derander","tobago","bjeanes","omarqureshi","wmoxam","dfr | work","kithpom","jschoolcraft","Dreamer3","philcrissman","halogenandtoast","edavis10","withanx","leethal","djones","djones_","wycats","apow","wuputah","jasonking","dfr","m4rtijn | lap","rsl","hates","lenary","apeiros_","Caius","foucist","magneto","xanderbeedle","RubyPanther","rds","nate-","zodiak","apeiros","rohit","hosh_work","Tass_","erikh","twe4ked","Tasser","aperios_","aperios", "SpaceGhostC2C", "samuelkadolph"].each do | p |
   Person.create!(:nick => p, :authorized => true)
