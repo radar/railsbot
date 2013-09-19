@@ -114,8 +114,14 @@ class Bot < Summer::Connection
 
   def say_command(sender, reply_to, msg)
     return unless authorized?(sender[:nick])
-    msg = msg.split(" ")
-    privmsg(msg[1..-1].join(" "), msg.first)
+    chan, msg = msg.split(" ", 2)
+    begin
+      privmsg(msg, chan)
+    rescue
+      # The channel is user-input, and if it's a non-existent channel can crash the bot.
+      # Replying back to the attempt here instead if something goes wrong.
+      privmsg("Sorry, could not say that", reply_to)
+    end
   end
 
   def part_command(sender, reply_to, msg)
