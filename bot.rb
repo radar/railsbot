@@ -22,7 +22,7 @@ class Bot < Summer::Connection
 
   def authorize_command(sender, reply_to, msg)
     return unless authorized?(sender[:nick]) && sender[:nick].downcase == "radar"
-    p = Person.find_or_create_by_nick(msg.downcase)
+    p = person(msg)
     p.authorized = true
     p.save!
     privmsg("#{msg} is now authorized to (ab)use me.", sender[:nick])
@@ -100,7 +100,7 @@ class Bot < Summer::Connection
 
   def whois_command(sender, reply_to, nick)
     return unless authorized?(sender[:nick])
-    p = Person.find_by_nick(nick)
+    p = Person.where(:nick => nick).first
     if p
       privmsg("http://logs.ryanbigg.com/p/#{nick}", reply_to)
     else
@@ -269,7 +269,7 @@ class Bot < Summer::Connection
     name = channel.gsub("#", '')
     channel = Channel.where("NAME ILIKE ?", name).first
     channel = Channel.create!(:name => name) if channel.nil?
-    person = Person.find_or_create_by_nick(sender[:nick])
+    person = person(sender[:nick])
     message = message.encode("UTF-8", :invalid => :replace, :undef => :replace, :replace => "?")
     channel.messages.create!(:person => person,
                              :text => message,
@@ -284,6 +284,10 @@ class Bot < Summer::Connection
   def search(host, sender, msg, reply_to, opts, query_parameter="q")
     message = "#{host}?#{query_parameter}=#{msg.split(" ").join("+")}"
     direct_at(reply_to, message, opts[:directed_at])
+  end
+
+  def person(nick)
+    Person.where(:nick => nick).first_or_create
   end
 
   # Who's there?
