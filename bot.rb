@@ -1,4 +1,5 @@
 $:.unshift(File.dirname(__FILE__))
+require 'bundler/setup'
 require 'railsbot'
 require 'json'
 require 'httparty'
