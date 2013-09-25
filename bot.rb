@@ -1,6 +1,5 @@
 $:.unshift(File.dirname(__FILE__))
 require 'railsbot'
-require 'iconv'
 require 'json'
 require 'httparty'
 require 'nokogiri'
@@ -259,7 +258,7 @@ class Bot < Summer::Connection
     channel = Channel.where("NAME ILIKE ?", name).first
     channel = Channel.create!(:name => name) if channel.nil?
     person = Person.find_or_create_by_nick(sender[:nick])
-    message = ::Iconv.conv('UTF-8//IGNORE', 'UTF-8', message + ' ')[0..-2]
+    message = message.encode("UTF-8", :invalid => :replace, :undef => :replace, :replace => "?")
     channel.messages.create!(:person => person,
                              :text => message,
                              :type => type)
