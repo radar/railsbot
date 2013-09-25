@@ -12,7 +12,7 @@ class Bot < Summer::Connection
   def did_start_up
     ActiveRecord::Base.establish_connection(config['database'])
     auth_command
-    privmsg("Bot started up at #{Time.now.strftime("%d %B %Y %H:%m")}", "Radar")
+    privmsg("Bot started up at #{Time.now.strftime("%d %B %Y %H:%M")}", "Radar")
     @pastebin_dumbass = {}
   end
 
