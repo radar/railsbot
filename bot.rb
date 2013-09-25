@@ -96,6 +96,17 @@ class Bot < Summer::Connection
     privmsg(message, reply_to)
   end
 
+
+  def whois_command(sender, reply_to, nick)
+    return unless authorized?(sender[:nick])
+    p = Person.find_by_nick(nick)
+    if p
+      privmsg("http://logs.ryanbigg.com/p/#{nick}", reply_to)
+    else
+      privmsg("Who is #{nick}?", reply_to)
+    end
+  end
+
   def gem_command(sender, reply_to, gem_name, opts={})
     return unless authorized?(sender[:nick])
     message = "http://www.rubygems.org/gems/#{gem_name}"
