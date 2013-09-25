@@ -1,7 +1,6 @@
 # encoding: utf-8
 require 'rubygems'
-
-gem 'json', '~> 1.7.7'
+require 'bundler/setup'
 require 'benchmark'
 require 'active_support/core_ext/class/attribute_accessors'
 require 'active_record'
@@ -54,6 +53,7 @@ Dir["lib/models/*.rb"].each { |f| require_relative f }
   Person.create!(:nick => p, :authorized => true)
 end
 
+require 'cucumber'
 require 'cucumber/ast'
 
 tips =  Cucumber::Ast::Table.new(
