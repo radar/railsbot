@@ -1,3 +1,4 @@
+# encoding: UTF-8
 $:.unshift(File.dirname(__FILE__))
 require 'bundler/setup'
 require 'railsbot'
@@ -20,7 +21,7 @@ class Bot < Summer::Connection
     privmsg("identify #{config['nickserv_password']}", "nickserv")
   end
 
-  def authorize_command(sender, reply_to, msg)
+  def authorize_command(sender, reply_to, msg, opts={})
     return unless authorized?(sender[:nick]) && sender[:nick].downcase == "radar"
     p = person(msg)
     p.authorized = true
@@ -28,7 +29,7 @@ class Bot < Summer::Connection
     privmsg("#{msg} is now authorized to (ab)use me.", sender[:nick])
   end
 
-  def gitlog_command(sender, reply_to, msg)
+  def gitlog_command(sender, reply_to, msg, opts={})
     return unless authorized?(sender[:nick])
     privmsg(`git log -1`.split("\n").first, reply_to)
   end
@@ -38,9 +39,9 @@ class Bot < Summer::Connection
     if tip = Tip.find_by_command(command.strip)
       tip.text.gsub!("{nick}", sender[:nick])
       message = tip.text
-      
+
       message.gsub!("{nick}", sender[:nick])
-      
+
       if options[:directed_at]
         if tip.text =~ /{target}/
           message.gsub!("{target}", options[:directed_at])
@@ -48,14 +49,15 @@ class Bot < Summer::Connection
           message = "#{options[:directed_at]}: #{message}"
         end
       end
-      
+
       privmsg(message, reply_to)
       log({ :nick => config[:nick]}, reply_to, message)
     end
   end
 
-  def seen_command(sender, reply_to, nick)
+  def seen_command(sender, reply_to, nick, opts={})
     return unless authorized?(sender[:nick])
+    nick = opts[:directed_at] if nick.nil? || nick.empty?
     if sender[:nick].downcase == nick.downcase
       privmsg("Looked in a mirror recently? Oh? Poor mirror.", reply_to)
     else
@@ -75,8 +77,10 @@ class Bot < Summer::Connection
     end
   end
 
-  def since_command(sender, reply_to, nick)
+  def since_command(sender, reply_to, nick, opts={})
     return unless authorized?(sender[:nick])
+    nick = opts[:directed_at] if nick.nil? || nick.empty?
+
     p = Person.find_by_nick(nick)
     if p
       if p.messages.exists?
@@ -98,8 +102,9 @@ class Bot < Summer::Connection
   end
 
 
-  def whois_command(sender, reply_to, nick)
+  def whois_command(sender, reply_to, nick, opts={})
     return unless authorized?(sender[:nick])
+    nick = opts[:directed_at] if nick.nil? || nick.empty?
     p = Person.where(:nick => nick).first
     if p
       privmsg("http://logs.ryanbigg.com/p/#{nick}", reply_to)
@@ -119,11 +124,11 @@ class Bot < Summer::Connection
     search("http://www.rubygems.org/search", sender, msg, reply_to, opts, 'search')
   end
 
-  def join_command(sender, reply_to, msg)
+  def join_command(sender, reply_to, msg, opts={})
     join(msg) if authorized?(sender[:nick])
   end
 
-  def say_command(sender, reply_to, msg)
+  def say_command(sender, reply_to, msg, opts={})
     return unless authorized?(sender[:nick])
     chan, msg = msg.split(" ", 2)
     begin
@@ -135,7 +140,7 @@ class Bot < Summer::Connection
     end
   end
 
-  def part_command(sender, reply_to, msg)
+  def part_command(sender, reply_to, msg, opts={})
     part(msg) if authorized?(sender[:nick])
   end
 
@@ -176,7 +181,7 @@ class Bot < Summer::Connection
 
     case response["status"]
       when "minor"
-        privmsg("GitHub is currently experiencing MINOR PROBLEMS. #{message}", reply_to) 
+        privmsg("GitHub is currently experiencing MINOR PROBLEMS. #{message}", reply_to)
       when "major"
         privmsg("GitHub is currently experiencing MAJOR PROBLEMS. #{message}", reply_to)
       else

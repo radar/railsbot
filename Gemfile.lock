@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/radar/summer.git
+  revision: 62a992cde867638c4eccc43824d990d7aa2f9e34
+  specs:
+    summer (1.0.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -48,7 +54,6 @@ GEM
       method_source (~> 0.8)
       slop (~> 3.4)
     slop (3.4.6)
-    summer (1.0.1)
     thread_safe (0.1.3)
       atomic
     tzinfo (0.3.37)
@@ -64,4 +69,4 @@ DEPENDENCIES
   nokogiri
   pg
   pry
-  summer
+  summer!
