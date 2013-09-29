@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem "activerecord", "4.0.0", :require => "active_record"
 gem 'pry'
-gem "summer"
+gem "summer", github: 'radar/summer'
 gem 'json'
 gem 'httparty'
 gem 'nokogiri'
