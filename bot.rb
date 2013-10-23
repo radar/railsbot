@@ -298,7 +298,7 @@ class Bot < Summer::Connection
   # Who's there?
 
   def authorized?(nick)
-    Person.find_by_nick_and_authorized(nick.downcase, true)
+    Person.where("nick ILIKE ? AND authorized = ?", nick, true)
   end
 end
 
