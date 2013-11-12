@@ -299,7 +299,7 @@ class Bot < Summer::Connection
   # Who's there?
 
   def authorized?(nick)
-    Person.where("nick ILIKE ? AND authorized = ?", nick, true)
+    Person.where("nick ILIKE ? AND authorized = ?", nick, true).exists?
   end
 end
 
