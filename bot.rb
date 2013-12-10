@@ -228,6 +228,10 @@ class Bot < Summer::Connection
     privmsg("I know of #{Tip.count} ways to entertain you.", channel)
   end
 
+  def ping_command(sender, channel, message, opts={})
+    privmsg("!pong", sender[:nick])
+  end
+
   def mode(sender, channel, *mode)
     log(sender, channel, mode.join(" "), "mode")
   end
