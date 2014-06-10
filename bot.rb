@@ -6,8 +6,6 @@ require 'json'
 require 'httparty'
 require 'nokogiri'
 
-require 'commands/where'
-
 class Bot < Summer::Connection
 
   BALL8_TIPS = YAML.load(File.read(File.join(File.dirname(__FILE__), 'config', '8ball.yml')))
