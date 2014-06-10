@@ -215,6 +215,11 @@ class Bot < Summer::Connection
     direct_at(channel, BALL8_TIPS[rand(BALL8_TIPS.size)], opts[:directed_at])
   end
 
+  def when_command(sender, channel, message, opts={})
+    estimate = Time.now + rand(10000).days
+    direct_at(channel, "Calculating estimated date from all known knowledge... Best estimate: #{estimate.to_date} (or there abouts).")
+  end
+
   def channel_message(sender, channel, message, options={})
     # try to match a non-existent command which might be a tip
     tip_me(sender, channel, message)
