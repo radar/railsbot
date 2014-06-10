@@ -6,6 +6,8 @@ require 'json'
 require 'httparty'
 require 'nokogiri'
 
+require 'commands/where'
+
 class Bot < Summer::Connection
 
   BALL8_TIPS = YAML.load(File.read(File.join(File.dirname(__FILE__), 'config', '8ball.yml')))
@@ -218,6 +220,14 @@ class Bot < Summer::Connection
   def when_command(sender, channel, message, opts={})
     estimate = Time.now + rand(10000).days
     direct_at(channel, "Calculating estimated date from all known knowledge... Best estimate: #{estimate.to_date} (or there abouts).")
+  end
+
+  def where_command(sender, channel, message, opts={})
+    latitude = opts.fetch(:latitude, rand(-90.0000...90.0000))
+    longitude = opts.fetch(:longitude, rand(-180.0000...180.0000))
+
+    url = "https://www.google.com/maps/@#{latitude},#{longitude},7z"
+    direct_at(channel, "Meet here. #{url}")
   end
 
   def channel_message(sender, channel, message, options={})
