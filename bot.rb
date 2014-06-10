@@ -225,7 +225,11 @@ class Bot < Summer::Connection
     longitude = opts.fetch(:longitude, rand(-180.0000...180.0000))
 
     url = "https://www.google.com/maps/@#{latitude},#{longitude},7z"
-    direct_at(channel, "Meet here. #{url}")
+    msg = ""
+    msg += "#{opts[:directed_at]}: " if opts[:directed_at]
+    msg += "Meet here: #{url}"
+
+    direct_at(channel, msg)
   end
 
   def channel_message(sender, channel, message, options={})
