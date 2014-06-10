@@ -1,8 +1,12 @@
 nick: logga
 channels:
   - "#logga"
-#   - "#rubyonrails"
-#   - "#railsbridge"
+  - "#rubyonrails"
+  - "#railsbridge"
+  - "#spree"
+  - "#spree-dev"
+  - "#Rubyonrails-offtopic"
+  - "#ruby"
 auto_rejoin: true
 database:
   adapter: postgresql
