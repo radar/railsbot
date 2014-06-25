@@ -211,6 +211,10 @@ class Bot < Summer::Connection
     privmsg("The !#{message[0]} command has been deleted.", channel == me ? sender[:nick] : channel)
   end
 
+  def help_command(sender, channel, message, opts={})
+    privmsg("I need somebody! !help. Not just anybody. !help. You know I need someone. !help", channel == me ? sender[:nick] : channel)
+  end
+
   define_method "8ball_command" do |sender, channel, message, opts={}|
     direct_at(channel, BALL8_TIPS[rand(BALL8_TIPS.size)], opts[:directed_at])
   end
