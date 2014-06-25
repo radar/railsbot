@@ -49,7 +49,7 @@ end
 
 Dir["lib/models/*.rb"].each { |f| require_relative f }
 
-["radar","workmad3","toretore","augustl","Remear","SuperTaz","eladmeidar","ReinH","Hates_","JayM","mark[oz]","anathematic","pjammer","confounds","dpickett","camonz","crankharder","fowlduck","Derander","tobago","bjeanes","omarqureshi","wmoxam","dfr | work","kithpom","jschoolcraft","Dreamer3","philcrissman","halogenandtoast","edavis10","withanx","leethal","djones","djones_","wycats","apow","wuputah","jasonking","dfr","m4rtijn | lap","rsl","hates","lenary","apeiros_","Caius","foucist","magneto","xanderbeedle","RubyPanther","rds","nate-","zodiak","apeiros","rohit","hosh_work","Tass_","erikh","twe4ked","Tasser","aperios_","aperios", "SpaceGhostC2C", "samuelkadolph"].each do | p |
+["radar","workmad3","toretore","augustl","Remear","SuperTaz","eladmeidar","ReinH","Hates_","JayM","mark[oz]","anathematic","pjammer","confounds","dpickett","camonz","crankharder","fowlduck","Derander","tobago","bjeanes","omarqureshi","wmoxam","dfr | work","kithpom","jschoolcraft","Dreamer3","philcrissman","halogenandtoast","edavis10","withanx","leethal","djones","djones_","wycats","apow","wuputah","jasonking","dfr","m4rtijn | lap","rsl","hates","lenary","apeiros_","Caius","foucist","magneto","xanderbeedle","RubyPanther","rds","nate-","zodiak","apeiros","rohit","hosh_work","Tass_","erikh","twe4ked","Tasser","aperios_","aperios", "SpaceGhostC2C", "samuelkadolph", "austinbv"].each do | p |
   Person.create!(:nick => p, :authorized => true)
 end
 
@@ -223,7 +223,8 @@ tips =  Cucumber::Ast::Table.new(
      | eieo                   | Please show us your expected input and output. By providing this, it makes it easier for us to understand what you're trying to do.                                                                                                                                                                                  |
      | indent                 | Two spaces is *the* standard indentation for Ruby. Please always use two-space indentation. Tabs are evil. See http://www.caliban.org/ruby/rubyguide.shtml#indentation                                                                                                                                               |
      | mlb                    | Multi-lined blocks should use `do` and `end` rather than curly braces.                                                                                                                                                                                                                                               |
-     | example                | Please show us an example of what you want.                                                                                                                                                                                                                                                                          |
+     | example                | Please show us an example of what you want. 
+     | rspecbook              | A great book to help understand the testing workflow, http://pragprog.com/book/achbd/the-rspec-book
 }.strip.split("\n").map { |tip| tip.split("|")[1..-1].map(&:strip) }).raw
 
 
