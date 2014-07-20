@@ -5,14 +5,18 @@ require 'railsbot'
 require 'json'
 require 'httparty'
 require 'nokogiri'
+if ENV['MIGRATE']
+  puts "------> Running migrations:"
+  require 'migration'
+end
 
 class Bot < Summer::Connection
 
   BALL8_TIPS = YAML.load(File.read(File.join(File.dirname(__FILE__), 'config', '8ball.yml')))
-
+  CONFIG = YAML::load_file("config/summer.yml")
   def did_start_up
-    ActiveRecord::Base.establish_connection(config['database'])
-    privmsg("Bot started up at #{Time.now.strftime("%d %B %Y %H:%M")}", "Radar")
+    ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || config['database'])
+    privmsg("Bot started up at #{Time.now.strftime("%d %B %Y %H:%M")}", CONFIG['owner'])
     @pastebin_dumbass = {}
   end
 
@@ -328,4 +332,4 @@ class Bot < Summer::Connection
 end
 
 
-Bot.new(ARGV[0])
+Bot.new(ARGV[0], ARGV[1] || 6667)

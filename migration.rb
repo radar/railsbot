@@ -6,7 +6,8 @@ require 'active_support/core_ext/class/attribute_accessors'
 require 'active_record'
 
 config = YAML::load_file("config/summer.yml")
-ActiveRecord::Base.establish_connection(config["database"])
+
+ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || config["database"])
 
 ActiveRecord::Schema.define do
   create_table :channels, :force => true do |t|
@@ -33,6 +34,7 @@ ActiveRecord::Schema.define do
     t.string :type
     t.integer :channel_id
     t.integer :person_id
+    t.boolean :hidden, :default => false
     t.timestamps
   end
    
@@ -49,7 +51,7 @@ end
 
 Dir["lib/models/*.rb"].each { |f| require_relative f }
 
-["radar","workmad3","toretore","augustl","Remear","SuperTaz","eladmeidar","ReinH","Hates_","JayM","mark[oz]","anathematic","pjammer","confounds","dpickett","camonz","crankharder","fowlduck","Derander","tobago","bjeanes","omarqureshi","wmoxam","dfr | work","kithpom","jschoolcraft","Dreamer3","philcrissman","halogenandtoast","edavis10","withanx","leethal","djones","djones_","wycats","apow","wuputah","jasonking","dfr","m4rtijn | lap","rsl","hates","lenary","apeiros_","Caius","foucist","magneto","xanderbeedle","RubyPanther","rds","nate-","zodiak","apeiros","rohit","hosh_work","Tass_","erikh","twe4ked","Tasser","aperios_","aperios", "SpaceGhostC2C", "samuelkadolph"].each do | p |
+config['authorized_users'].each do | p |
   Person.create!(:nick => p, :authorized => true)
 end
 

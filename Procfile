@@ -1,0 +1,1 @@
+bot: ruby bot.rb $RAILS_BOT_IRC_SERVER $RAILS_BOT_IRC_PORT
