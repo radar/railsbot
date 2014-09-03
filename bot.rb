@@ -13,6 +13,7 @@ end
 class Bot < Summer::Connection
 
   BALL8_TIPS = YAML.load(File.read(File.join(File.dirname(__FILE__), 'config', '8ball.yml')))
+  REASON_TIPS = YAML.load(File.read(File.join(File.dirname(__FILE__), 'config', 'reasons.yml')))
   CONFIG = YAML::load_file("config/summer.yml")
   def did_start_up
     ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || config['database'])
@@ -221,6 +222,10 @@ class Bot < Summer::Connection
 
   define_method "8ball_command" do |sender, channel, message, opts={}|
     direct_at(channel, BALL8_TIPS[rand(BALL8_TIPS.size)], opts[:directed_at])
+  end
+
+  define_method "reason_command" do |sender, channel, message, opts={}|
+    direct_at(channel, REASON_TIPS[rand(REASON_TIPS.size)], opts[:directed_at])
   end
 
   def when_command(sender, channel, message, opts={})
