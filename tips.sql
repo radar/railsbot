@@ -414,4 +414,5 @@ COPY tips (id, command, text) FROM stdin;
 406	LART	Definition: Luser Attitude Readjustment Tool, to lart someone, use !lart.
 407	offtopic	Your question is considered off topic for #rubyonrails, you'll have to ask in a different chatroom.
 408	querying	http://guides.rubyonrails.org/active_record_querying.html - ActiveRecord Querying Guide by Ryan Bigg
+489 heroku  For questions specific to Heroku, go to #heroku or view their support policy at https://www.heroku.com/policy/support
 \.
