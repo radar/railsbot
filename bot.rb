@@ -326,7 +326,8 @@ class Bot < Summer::Connection
   end
 
   def person(nick)
-    Person.where("nick ILIKE ?", nick).first_or_create
+    person = Person.find_by("nick ILIKE ?", nick)
+    person ||= Person.create(nick: nick)
   end
 
   # Who's there?
