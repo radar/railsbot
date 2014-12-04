@@ -326,7 +326,7 @@ class Bot < Summer::Connection
   end
 
   def person(nick)
-    person = Person.find_by("nick ILIKE ?", nick)
+    person = Person.find_by("nick ILIKE ? ESCAPE ''", nick)
     person ||= Person.create(nick: nick)
   end
 
