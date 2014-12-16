@@ -1,4 +1,5 @@
-nick: logga
+nick: helpa
+alternate_nick: helpa-bot
 channels:
   - "#logga"
   - "#rubyonrails"

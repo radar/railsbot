@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/radar/summer.git
-  revision: 19f5ebbf00d4eb62bb698f479098b9d8fde8cd5d
+  revision: 7c89d4c016ac7fc66470bd27eda7e8d8043a745e
   branch: master
   specs:
     summer (1.0.0)
