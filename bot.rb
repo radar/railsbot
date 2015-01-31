@@ -247,9 +247,9 @@ class Bot < Summer::Connection
 
   def channel_message(sender, channel, message, options={})
     # try to match a non-existent command which might be a tip
+    log(sender, channel, message)
     tip_me(sender, channel, message)
     pastebin_sucks(sender, channel, message)
-    log(sender, channel, message)
   end
 
   alias_method :private_message, :channel_message
