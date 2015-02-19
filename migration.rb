@@ -40,6 +40,7 @@ ActiveRecord::Schema.define do
    
   create_table :people, :force => true do |t|
     t.string :nick, :hostname
+    t.integer :thanks, :default => 0
     t.boolean :authorized, :default => false
   end
   

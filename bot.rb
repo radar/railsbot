@@ -308,6 +308,10 @@ class Bot < Summer::Connection
     channel = Channel.where("NAME ILIKE ?", name).first
     channel = Channel.create!(:name => name) if channel.nil?
     person = person(sender[:nick])
+    if ((message.include? "thank you" or message.include? "thanks") and thanked_person = Person.find_by("nick ILIKE ? ESCAPE ''", message.split(":")[0]))
+      thanked_person.thanks = thanked_person.thanks + 1
+      thanked_person.save
+    end
     message = message.encode("UTF-8", :invalid => :replace, :undef => :replace, :replace => "?")
     channel.messages.create!(:person => person,
                              :text => message,
