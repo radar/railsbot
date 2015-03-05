@@ -289,7 +289,7 @@ class Bot < Summer::Connection
   end
 
   def pastebin_sucks(sender, channel, message)
-    if channel.downcase == "#rubyonrails"
+    if %w[#rubyonrails #ruby].include?(channel.downcase)
       if m = /http:\/\/.*?pastebin.com\/(?!raw)/i.match(message)
         dumbass = @pastebin_dumbass[sender[:nick]]
         if dumbass.nil? || dumbass < Time.now.to_i - 300
