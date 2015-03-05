@@ -293,10 +293,10 @@ class Bot < Summer::Connection
       if m = /http:\/\/.*?pastebin.com\/(?!raw)/i.match(message)
         dumbass = @pastebin_dumbass[sender[:nick]]
         if dumbass.nil? || dumbass < Time.now.to_i - 300
-          privmsg("Hi #{sender[:nick]}. We in #rubyonrails would really appreciate it if you did not use pastebin during your time with us.", channel)
+          privmsg("Hi #{sender[:nick]}. We in #{channel.downcase} would really appreciate it if you did not use pastebin during your time with us.", channel)
           privmsg("Pastebin is not good because it loads slowly for most, has ads which are distracting and has terrible formatting. Please use Gist (http://gist.github.com) or Pastie (http://pastie.org) instead. Thanks!", channel)
         else
-          privmsg("Hi again #{sender[:nick]}. If you continue to use pastebin in #rubyonrails, much scorn will be heaped upon you. Please use Gist (http://gist.github.com or Pastie (http://pastie.org) instead. Thanks!", sender[:nick])
+          privmsg("Hi again #{sender[:nick]}. If you continue to use pastebin in #{channel.downcase}, much scorn will be heaped upon you. Please use Gist (http://gist.github.com or Pastie (http://pastie.org) instead. Thanks!", sender[:nick])
         end
         @pastebin_dumbass[sender[:nick]] = Time.now.to_i
       end
