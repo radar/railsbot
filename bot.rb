@@ -23,8 +23,10 @@ class Bot < Summer::Connection
   end
   
   def ops_command(sender, channel, message, opts={})
-    OPS[channel].each do |operator|
-      privmsg("In #{channel}: #{sender} -> #{message}", operator)
+    if authorized?
+      direct_at(channel, "#{sender} has requested help from #{OPS[channel].join(", ")}.")
+    else
+      direct_at(channel, "I'm sorry #{sender}, but you need to be authenticated to use this service. Try authenticating with NickServ first.")
     end
   end
 
