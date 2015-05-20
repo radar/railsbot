@@ -281,7 +281,7 @@ class Bot < Summer::Connection
   end
 
   def quit_event(quitter, message)
-    log(quitter, nil, message, "quit")
+    log(quitter, "", message, "quit")
   end
 
   private
