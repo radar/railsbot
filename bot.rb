@@ -273,11 +273,11 @@ class Bot < Summer::Connection
   end
 
   def join_event(joiner, channel)
-    log(joiner, channel, "has joined", "join")
+    log(joiner, channel, "has joined #{channel}", "join")
   end
 
   def part_event(parter, channel, message)
-    log(parter, channel, "has left: (#{message})", "part")
+    log(parter, channel, "has left #{channel}: (#{message})", "part")
   end
 
   def quit_event(quitter, message)
