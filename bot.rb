@@ -262,14 +262,26 @@ class Bot < Summer::Connection
     privmsg("!pong", sender[:nick])
   end
 
-  def mode(sender, channel, *mode)
+  def mode_event(sender, channel, *mode)
     log(sender, channel, mode.join(" "), "mode")
   end
 
-  def kick(sender, channel, victim, message)
+  def kick_event(sender, channel, victim, message)
     # message contains channel name for whatever reason
     reason = message.split(" ")[1..-1].join(" ")
     log(sender, channel, "#{sender[:nick]} kicked #{victim}: #{reason}", "kick")
+  end
+
+  def join_event(joiner, channel)
+    log(joiner, channel, "has joined", "join")
+  end
+
+  def part_event(parter, channel)
+    log(parter, channel, "has left", "part")
+  end
+
+  def quit_event(quitter, message)
+    log(quitter, nil, message, "quit")
   end
 
   private
