@@ -36,7 +36,7 @@ ActiveRecord::Schema.define do
     t.integer :channel_id
     t.integer :person_id
     t.boolean :hidden, :default => false
-    t.timestamps
+    t.timestamps :null => false
   end
    
   create_table :people, :force => true do |t|
