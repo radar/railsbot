@@ -258,6 +258,7 @@ class Bot < Summer::Connection
   alias_method :private_message, :channel_message
 
   def spam_protection(sender, channel, message)
+    return if authorized?(sender[:nick])
     key = "irc-#{sender[:nick]}"
     count = @redis.get(key)
     unless count
