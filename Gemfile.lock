@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/radar/summer.git
-  revision: e064b91d2c2913ebccc26548d9f2e21002d65d7d
+  revision: b25b17565ea16c11620e6e7d382e1c4d353a319f
   branch: master
   specs:
     summer (1.0.0)
@@ -41,6 +41,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    redis (3.2.1)
     slop (3.6.0)
     thread_safe (0.3.5)
     tzinfo (1.2.2)
@@ -57,4 +58,8 @@ DEPENDENCIES
   nokogiri
   pg
   pry
+  redis
   summer!
+
+BUNDLED WITH
+   1.10.4

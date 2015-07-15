@@ -5,6 +5,7 @@ require 'railsbot'
 require 'json'
 require 'httparty'
 require 'nokogiri'
+require 'redis'
 if ENV['MIGRATE']
   puts "------> Running migrations:"
   require 'migration'
@@ -19,6 +20,7 @@ class Bot < Summer::Connection
     ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || config['database'])
     privmsg("Bot started up at #{Time.now.strftime("%d %B %Y %H:%M")}", CONFIG['owner'])
     @pastebin_dumbass = {}
+    @redis = Redis.new
   end
 
   def auth_command(*args)
@@ -247,12 +249,34 @@ class Bot < Summer::Connection
 
   def channel_message(sender, channel, message, options={})
     # try to match a non-existent command which might be a tip
+    spam_protection(sender, channel, message)
     log(sender, channel, message)
     tip_me(sender, channel, message)
     pastebin_sucks(sender, channel, message)
   end
 
   alias_method :private_message, :channel_message
+
+  def spam_protection(sender, channel, message)
+    key = "irc-#{sender[:nick]}"
+    count = @redis.get(key)
+    unless count
+      @redis.set(key, 1)
+      @redis.expire(key, 30)
+      return
+    end
+
+    count = @redis.incr(key)
+    if count > 5
+      notified_key = "notified-radar-about-#{sender[:nick]}"
+      notified = @redis.get(notified_key)
+      unless notified
+        @redis.set(notified_key, 1)
+        @redis.expire(notified_key, 300)
+        privmsg("#{sender[:nick]} is spamming in #{channel}", "Radar")
+      end
+    end
+  end
 
   def count_command(sender, channel, message, opts={})
     privmsg("I know of #{Tip.count} ways to entertain you.", channel)
