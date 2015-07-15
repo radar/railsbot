@@ -267,7 +267,7 @@ class Bot < Summer::Connection
     end
 
     count = @redis.incr(key)
-    if count > 5
+    if count >= 5
       notified_key = "notified-radar-about-#{sender[:nick]}"
       notified = @redis.get(notified_key)
       unless notified
