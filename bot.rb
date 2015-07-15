@@ -258,22 +258,24 @@ class Bot < Summer::Connection
   alias_method :private_message, :channel_message
 
   def spam_protection(sender, channel, message)
-    key = "irc-#{sender[:nick]}"
-    count = @redis.get(key)
-    unless count
-      @redis.set(key, 1)
-      @redis.expire(key, 10)
-      return
-    end
-
-    count = @redis.incr(key)
-    if count >= 5
-      notified_key = "notified-radar-about-#{sender[:nick]}"
-      notified = @redis.get(notified_key)
-      unless notified
-        @redis.set(notified_key, 1)
-        @redis.expire(notified_key, 300)
-        privmsg("#{sender[:nick]} is spamming in #{channel}", "Radar")
+    unless authorized?(sender[:nick])
+      key = "irc-#{sender[:nick]}"
+      count = @redis.get(key)
+      unless count
+        @redis.set(key, 1)
+        @redis.expire(key, 10)
+        return
+      end
+  
+      count = @redis.incr(key)
+      if count >= 5
+        notified_key = "notified-radar-about-#{sender[:nick]}"
+        notified = @redis.get(notified_key)
+        unless notified
+          @redis.set(notified_key, 1)
+          @redis.expire(notified_key, 300)
+          privmsg("#{sender[:nick]} is spamming in #{channel}", "Radar")
+        end
       end
     end
   end
