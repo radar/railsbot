@@ -262,7 +262,7 @@ class Bot < Summer::Connection
     count = @redis.get(key)
     unless count
       @redis.set(key, 1)
-      @redis.expire(key, 15)
+      @redis.expire(key, 10)
       return
     end
 
