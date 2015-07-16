@@ -283,6 +283,15 @@ class Bot < Summer::Connection
     privmsg("I know of #{Tip.count} ways to entertain you.", channel)
   end
 
+  # Important command for Aeyrix
+  def mods_command(sender, channel, message, opts={})
+    return unless authorized?(sender[:nick])
+    privmsg("M O D S", channel)
+    privmsg("O", channel)
+    privmsg("D", channel)
+    privmsg("S", channel)
+  end
+
   def ping_command(sender, channel, message, opts={})
     privmsg("!pong", sender[:nick])
   end
