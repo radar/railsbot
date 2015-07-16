@@ -289,6 +289,8 @@ class Bot < Summer::Connection
     privmsg("bricker mikecmpbll Necromancer Radar sevenseacat smathy workmad3", channel)
   end
 
+  alias :ops_command :mods_command
+
   def ping_command(sender, channel, message, opts={})
     privmsg("!pong", sender[:nick])
   end
