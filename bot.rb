@@ -87,7 +87,7 @@ class Bot < Summer::Connection
     return unless authorized?(sender[:nick])
     nick = opts[:directed_at] if nick.nil? || nick.empty?
 
-    p = Person.find_by_nick(nick)
+    p = Person.find_insensitive(nick)
     if p
       if p.messages.exists?
         first_message_date = p.messages.order("id ASC").first.created_at.to_date
