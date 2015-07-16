@@ -287,9 +287,9 @@ class Bot < Summer::Connection
   def mods_command(sender, channel, message, opts={})
     return unless authorized?(sender[:nick])
     privmsg("M O D S", channel)
-    privmsg("O", channel)
-    privmsg("D", channel)
-    privmsg("S", channel)
+    privmsg("O Radar smathy bricker", channel)
+    privmsg("D sevenseacat mikecmpbll", channel)
+    privmsg("S workmad3 Necromancer", channel)
   end
 
   def ping_command(sender, channel, message, opts={})
