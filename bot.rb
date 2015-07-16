@@ -286,10 +286,7 @@ class Bot < Summer::Connection
   # Important command for Aeyrix
   def mods_command(sender, channel, message, opts={})
     return unless authorized?(sender[:nick])
-    privmsg("M O D S", channel)
-    privmsg("O Radar smathy bricker", channel)
-    privmsg("D sevenseacat mikecmpbll", channel)
-    privmsg("S workmad3 Necromancer", channel)
+    privmsg("bricker mikecmpbll Necromancer Radar sevenseacat smathy workmad3", channel)
   end
 
   def ping_command(sender, channel, message, opts={})
