@@ -278,7 +278,9 @@ class Bot < Summer::Connection
       unless notified
         @redis.set(notified_key, 1)
         @redis.expire(notified_key, 300)
-        privmsg("#{sender[:nick]} is spamming in #{channel}", "Radar")
+        message = "#{sender[:nick]} is spamming in #{channel}"
+        channel = ruby_channel? ? "#ruby-ops" : "Radar"
+        privmsg(message, channel)
       end
     end
   end
@@ -287,7 +289,7 @@ class Bot < Summer::Connection
     bad_words = ["nigger"]
     bad_word = bad_words.detect { |word| message.include?(word) }
     if bad_word && !authorized?(sender[:nick])
-      privmsg("#{sender[:nick]} said #{bad_word} in #{channel}", "Radar")
+      privmsg("#{sender[:nick]} said #{bad_word} in #{channel}", "#ruby-ops")
     end
   end
 
@@ -332,12 +334,12 @@ class Bot < Summer::Connection
 
   private
 
-  def silence_tips_in
-    ["#ruby", "#ruby-ops", "#ruby-offtopic", "#ruby-community"]
+  def ruby_channel?(channel)
+    ["#ruby", "#ruby-ops", "#ruby-offtopic", "#ruby-community"].include?(channel)
   end
 
   def tip_me(sender, channel, message)
-    return if silence_tips_in.include?(channel)
+    return if ruby_channel?(channel)
 
     if m = /^(([^:]+)[:|,])?\s?!([^\s]+)\s?(.*)?/.match(message)
       cmd_sym = "#{m[3]}_command".to_sym
@@ -402,8 +404,8 @@ class Bot < Summer::Connection
 
   def check_username(user, channel)
     score = UserNuker.new(user[:nick]).is_bad?
-    if score > 0
-      privmsg("#{user[:nick]} (#{user[:hostname]}) has joined #{channel} with a bad nick. Score: #{score}.", "Radar")
+    if score > 0 && ruby_channel?
+      privmsg("#{user[:nick]} (#{user[:hostname]}) has joined #{channel} with a bad nick. Score: #{score}.", "#ruby-ops")
     end
   end
 end
