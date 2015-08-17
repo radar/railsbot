@@ -332,7 +332,13 @@ class Bot < Summer::Connection
 
   private
 
+  def silence_tips_in
+    ["#ruby", "#ruby-ops", "#ruby-offtopic", "#ruby-community"]
+  end
+
   def tip_me(sender, channel, message)
+    return if silence_tips_in.include?(channel)
+
     if m = /^(([^:]+)[:|,])?\s?!([^\s]+)\s?(.*)?/.match(message)
       cmd_sym = "#{m[3]}_command".to_sym
       # if we don't respond to this command then it's likely a tip
