@@ -9,3 +9,7 @@ gem 'httparty'
 gem 'nokogiri'
 gem 'pg'
 gem 'redis'
+
+group :development do
+  gem 'rspec'
+end

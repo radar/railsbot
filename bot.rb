@@ -6,6 +6,9 @@ require 'json'
 require 'httparty'
 require 'nokogiri'
 require 'redis'
+
+require 'lib/user_nuker'
+
 if ENV['MIGRATE']
   puts "------> Running migrations:"
   require 'migration'
@@ -315,6 +318,7 @@ class Bot < Summer::Connection
   end
 
   def join_event(joiner, channel)
+    check_username(joiner, channel)
     log(joiner, channel, "has joined #{channel}", "join")
   end
 
@@ -388,6 +392,13 @@ class Bot < Summer::Connection
 
   def authorized?(nick)
     Person.where("nick ILIKE ? AND authorized = ?", nick, true).exists?
+  end
+
+  def check_username(user, channel)
+    score = UserNuker.new(user[:nick]).is_bad?
+    if score > 0
+      privmsg("#{user[:nick]} (#{user[:hostname]}) has joined #{channel} with a bad nick. Score: #{score}.", "Radar")
+    end
   end
 end
 
