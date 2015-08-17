@@ -250,6 +250,7 @@ class Bot < Summer::Connection
   def channel_message(sender, channel, message, options={})
     # try to match a non-existent command which might be a tip
     spam_protection(sender, channel, message)
+    naughty_word_detection(sender, channel, message)
     log(sender, channel, message)
     tip_me(sender, channel, message)
     pastebin_sucks(sender, channel, message)
@@ -276,6 +277,14 @@ class Bot < Summer::Connection
         @redis.expire(notified_key, 300)
         privmsg("#{sender[:nick]} is spamming in #{channel}", "Radar")
       end
+    end
+  end
+
+  def naughty_word_detection(sender, channel, message)
+    bad_words = ["nigger"]
+    bad_word = bad_words.detect { |word| message.include?(word) }
+    if bad_word && !authorized?(sender[:nick])
+      privmsg("#{sender[:nick]} said #{bad_word} in #{channel}", "Radar")
     end
   end
 
