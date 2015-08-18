@@ -36,6 +36,7 @@ class UserNuker
       damnit
       shit
       shitt
+      penis
     )
   end
 
