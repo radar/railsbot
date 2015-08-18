@@ -279,7 +279,7 @@ class Bot < Summer::Connection
         @redis.set(notified_key, 1)
         @redis.expire(notified_key, 300)
         message = "#{sender[:nick]} is spamming in #{channel}"
-        channel = ruby_channel? ? "#ruby-ops" : "Radar"
+        channel = ruby_channel?(channel) ? "#ruby-ops" : "Radar"
         privmsg(message, channel)
       end
     end
@@ -404,7 +404,7 @@ class Bot < Summer::Connection
 
   def check_username(user, channel)
     score = UserNuker.new(user[:nick]).is_bad?
-    if score > 0 && ruby_channel?
+    if score > 0 && ruby_channel?(channel)
       privmsg("#{user[:nick]} (#{user[:hostname]}) has joined #{channel} with a bad nick. Score: #{score}.", "#ruby-ops")
     end
   end
