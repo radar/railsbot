@@ -12,12 +12,19 @@ class UserNuker
   #
   # @return [Integer] Count of hits
   def is_bad?
+    return 0 if excluded?
     combinations.select { |c|
       c.include?(@name)         ||
       c.include?(@reverse_name) ||
       @name.include?(c)         ||
       @reverse_name.include?(c)
     }.count
+  end
+
+  def excluded?
+    ["pen", "noobfag"].detect do |n|
+      name == n || /#{n}_?/.match(name)
+    end
   end
 
   # Our naughty wordlist

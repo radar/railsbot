@@ -16,4 +16,14 @@ describe UserNuker do
     result = UserNuker.new("radar").is_bad?
     expect(result).to eq(0)
   end
+
+  it "pen is not bad" do
+    result = UserNuker.new("pen").is_bad?
+    expect(result).to eq(0)
+  end
+
+  it "n008f4g is not bad" do
+    result = UserNuker.new("n008f4g").is_bad?
+    expect(result).to eq(0)
+  end
 end
