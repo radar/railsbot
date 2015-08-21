@@ -13,12 +13,9 @@ class UserNuker
   # @return [Integer] Count of hits
   def is_bad?
     return 0 if excluded?
-    combinations.select { |c|
-      c.include?(@name)         ||
-      c.include?(@reverse_name) ||
-      @name.include?(c)         ||
-      @reverse_name.include?(c)
-    }.count
+    combinations.select do |c|
+      @name.include?(c) || @reverse_name.include?(c)
+    end.count
   end
 
   def excluded?
