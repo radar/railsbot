@@ -45,6 +45,7 @@ class UserNuker
       omfgtora
       hitler
       nazi
+      rape
     )
   end
 
