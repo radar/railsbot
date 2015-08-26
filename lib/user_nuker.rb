@@ -41,6 +41,7 @@ class UserNuker
       shit
       shitt
       penis
+      rape
     )
   end
 
