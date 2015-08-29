@@ -46,6 +46,7 @@ class UserNuker
       hitler
       nazi
       rape
+      kkk
     )
   end
 
