@@ -18,6 +18,8 @@ class Bot < Summer::Connection
 
   BALL8_TIPS = YAML.load(File.read(File.join(File.dirname(__FILE__), 'config', '8ball.yml')))
   REASON_TIPS = YAML.load(File.read(File.join(File.dirname(__FILE__), 'config', 'reasons.yml')))
+  OPS = YAML.load(File.read(File.join(File.dirname(__FILE__), 'config', 'ops.yml')))
+
   CONFIG = YAML::load_file("config/summer.yml")
   def did_start_up
     ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || config['database'])
@@ -301,6 +303,16 @@ class Bot < Summer::Connection
   def mods_command(sender, channel, message, opts={})
     return unless authorized?(sender[:nick])
     privmsg("bricker mikecmpbll Necromancer Radar sevenseacat smathy workmad3", channel)
+  end
+
+  def mute_command(sender, channel, message, opts={})
+    if OPS.include?(sender[:nick])
+      message_parts = message.split
+      privmsg("op #{channel} #{CONFIG[:nick]}", "chanserv")
+      sleep(1)
+      response("MODE #{channel} +q #{message_parts[0]}")
+      privmsg("deop #{channel} #{CONFIG[:nick]}", "chanserv")
+    end
   end
 
   alias :ops_command :mods_command
