@@ -304,6 +304,7 @@ class Bot < Summer::Connection
     return unless authorized?(sender[:nick])
     privmsg("baweaver bricker mikecmpbll Necromancer Radar sevenseacat smathy workmad3", channel)
   end
+  alias :ops_command :mods_command
 
   def mute_command(sender, channel, message, opts={})
     if OPS.include?(sender[:nick])
@@ -315,7 +316,15 @@ class Bot < Summer::Connection
     end
   end
 
-  alias :ops_command :mods_command
+  def unmute_command(sender, channel, message, opts={})
+    if OPS.include?(sender[:nick])
+      message_parts = message.split
+      privmsg("op #{channel} #{CONFIG[:nick]}", "chanserv")
+      sleep(1)
+      response("MODE #{channel} -q #{message_parts[0]}")
+      privmsg("deop #{channel} #{CONFIG[:nick]}", "chanserv")
+    end
+  end
 
   def ping_command(sender, channel, message, opts={})
     privmsg("!pong", sender[:nick])
