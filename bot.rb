@@ -309,20 +309,14 @@ class Bot < Summer::Connection
   def mute_command(sender, channel, message, opts={})
     if OPS.include?(sender[:nick])
       message_parts = message.split
-      privmsg("op #{channel} #{CONFIG[:nick]}", "chanserv")
-      sleep(1)
-      response("MODE #{channel} +q #{message_parts[0]}")
-      privmsg("deop #{channel} #{CONFIG[:nick]}", "chanserv")
+      privmsg("quiet #{channel} #{message_parts[0]}", "chanserv")
     end
   end
 
   def unmute_command(sender, channel, message, opts={})
     if OPS.include?(sender[:nick])
       message_parts = message.split
-      privmsg("op #{channel} #{CONFIG[:nick]}", "chanserv")
-      sleep(1)
-      response("MODE #{channel} -q #{message_parts[0]}")
-      privmsg("deop #{channel} #{CONFIG[:nick]}", "chanserv")
+      privmsg("unquiet #{channel} #{message_parts[0]}", "chanserv")
     end
   end
 
