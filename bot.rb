@@ -77,7 +77,8 @@ class Bot < Summer::Connection
       if p
         last_chat = p.messages.includes(:channel).
                     where("channels.hidden = ?", false).
-                    first(:order => "messages.created_at DESC")
+                    order("messages.created_at DESC").
+                    first
       end
 
       if last_chat
