@@ -75,7 +75,7 @@ class Bot < Summer::Connection
     else
       p = Person.find_by_nick(nick)
       if p
-        last_chat = p.messages.includes(:channel).
+        last_chat = p.messages.joins(:channel).
                     where("channels.hidden = ?", false).
                     order("messages.created_at DESC").
                     first
