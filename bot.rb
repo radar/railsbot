@@ -69,6 +69,7 @@ class Bot < Summer::Connection
   def seen_command(sender, reply_to, nick, opts={})
     return unless authorized?(sender[:nick])
     nick = opts[:directed_at] if nick.nil? || nick.empty?
+    return if nick.nil?
     if sender[:nick].downcase == nick.downcase
       privmsg("Looked in a mirror recently? Oh? Poor mirror.", reply_to)
     else
