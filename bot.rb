@@ -214,14 +214,20 @@ class Bot < Summer::Connection
     return unless authorized?(sender[:nick])
     message = message.split(" ")
     return if message.empty?
-    Tip.find_by_command(message[0]) || Tip.create!(:command => message[0], :text => message[1..-1].join(" "))
+    Tip.find_by_command(message[0]) || Tip.create!(
+      :command => message[0],
+      :text => message[1..-1].join(" "),
+      :owner => sender[:nick].downcase
+    )
     privmsg("The !#{message[0]} command is now available.", channel == me ? sender[:nick] : channel)
   end
 
   def forget_command(sender, channel, message, opts={})
-    return unless authorized?(sender[:nick]) && sender[:nick].downcase == "radar"
+    return unless authorized?(sender[:nick])
     message = message.split(" ")
-    Tip.find_by_command(message[0]).try(:destroy)
+    tip = Tip.find_by_command(message[0])
+    return unless tip.present? && tip.owned_by?(sender[:nick].downcase)
+    tip.destroy
     privmsg("The !#{message[0]} command has been deleted.", channel == me ? sender[:nick] : channel)
   end
 
