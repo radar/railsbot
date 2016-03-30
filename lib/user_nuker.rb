@@ -19,7 +19,7 @@ class UserNuker
   end
 
   def excluded?
-    ["pen", "noobfag", "i"].detect do |n|
+    ["pen", "noobfag"].detect do |n|
       name == n || /#{n}_?/.match(name)
     end
   end
@@ -32,6 +32,7 @@ class UserNuker
       fuck
       migger
       nigger
+      nijjer
       bitch
       cunt
       fag
