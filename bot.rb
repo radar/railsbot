@@ -392,7 +392,6 @@ class Bot < Summer::Connection
     channel = Channel.where("NAME ILIKE ?", name).first
     channel = Channel.create!(:name => name) if channel.nil?
     person = person(sender[:nick])
-    message = message.encode("UTF-8", :invalid => :replace, :undef => :replace, :replace => "?")
     channel.messages.create!(:person => person,
                              :text => message,
                              :type => type,
