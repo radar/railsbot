@@ -338,6 +338,7 @@ class Bot < Summer::Connection
 
   def join_event(joiner, channel)
     check_username(joiner, channel)
+    check_for_anonymous_kiwiirc(joiner, channel)
     log(joiner, channel, "has joined #{channel}", "join")
   end
 
@@ -423,6 +424,12 @@ class Bot < Summer::Connection
     score = UserNuker.new(user[:nick]).is_bad?
     if score > 0 && ruby_channel?(channel)
       privmsg("#{user[:nick]} (#{user[:hostname]}) has joined #{channel} with a bad nick. Score: #{score}.", "#ruby-ops")
+    end
+  end
+
+  def check_for_anonymous_kiwiirc(user, channel)
+    if user[:hostname].include?("kiwiirc") && !Person.where("nick ILIKE ?", user[:nick]).exists?
+      privmsg("Unknown KiwiIRC user detected: #{user[:nick]} (#{user[:hostname]}) has joined #{channel}.", "#ruby-ops")
     end
   end
 end
