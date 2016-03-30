@@ -41,8 +41,6 @@ class UserNuker
       shit
       shitt
       penis
-      tora
-      omfgtora
       hitler
       nazi
       rape
