@@ -33,7 +33,7 @@ class Bot < Summer::Connection
   end
 
   def authorize_command(sender, reply_to, msg, opts={})
-    return unless authorized?(sender[:nick]) && sender[:nick].downcase == "radar"
+    return unless authorized?(sender) && sender[:nick].downcase == "radar"
     p = person(msg)
     p.authorized = true
     p.save!
@@ -41,12 +41,12 @@ class Bot < Summer::Connection
   end
 
   def gitlog_command(sender, reply_to, msg, opts={})
-    return unless authorized?(sender[:nick])
+    return unless authorized?(sender)
     privmsg(`git log -1`.split("\n").first, reply_to)
   end
 
   def tip_command(sender, reply_to, command, options={})
-    return unless authorized?(sender[:nick])
+    return unless authorized?(sender)
     if tip = Tip.find_by_command(command.strip)
       tip.text.gsub!("{nick}", sender[:nick])
       message = tip.text
@@ -67,7 +67,7 @@ class Bot < Summer::Connection
   end
 
   def seen_command(sender, reply_to, nick, opts={})
-    return unless authorized?(sender[:nick])
+    return unless authorized?(sender)
     nick = opts[:directed_at] if nick.nil? || nick.empty?
     return if nick.nil?
     if sender[:nick].downcase == nick.downcase
@@ -91,7 +91,7 @@ class Bot < Summer::Connection
   end
 
   def since_command(sender, reply_to, nick, opts={})
-    return unless authorized?(sender[:nick])
+    return unless authorized?(sender)
     nick = opts[:directed_at] if nick.nil? || nick.empty?
 
     p = Person.find_insensitive(nick)
@@ -116,7 +116,7 @@ class Bot < Summer::Connection
 
 
   def whois_command(sender, reply_to, nick, opts={})
-    return unless authorized?(sender[:nick])
+    return unless authorized?(sender)
     nick = opts[:directed_at] if nick.nil? || nick.empty?
     p = Person.where(:nick => nick).first
     if p
@@ -127,22 +127,22 @@ class Bot < Summer::Connection
   end
 
   def gem_command(sender, reply_to, gem_name, opts={})
-    return unless authorized?(sender[:nick])
+    return unless authorized?(sender)
     message = "http://www.rubygems.org/gems/#{gem_name}"
     direct_at(reply_to, message, opts[:directed_at])
   end
 
   def gs_command(sender, reply_to, msg, opts={})
-    return unless authorized?(sender[:nick])
+    return unless authorized?(sender)
     search("http://www.rubygems.org/search", sender, msg, reply_to, opts, 'search')
   end
 
   def join_command(sender, reply_to, msg, opts={})
-    join(msg) if authorized?(sender[:nick])
+    join(msg) if authorized?(sender)
   end
 
   def say_command(sender, reply_to, msg, opts={})
-    return unless authorized?(sender[:nick])
+    return unless authorized?(sender)
     chan, msg = msg.split(" ", 2)
     begin
       privmsg(msg, chan)
@@ -154,7 +154,7 @@ class Bot < Summer::Connection
   end
 
   def part_command(sender, reply_to, msg, opts={})
-    part(msg) if authorized?(sender[:nick])
+    part(msg) if authorized?(sender)
   end
 
   def google_command(sender, reply_to, msg, opts={})
@@ -211,7 +211,7 @@ class Bot < Summer::Connection
   end
 
   def add_command(sender, channel, message, opts={})
-    return unless authorized?(sender[:nick])
+    return unless authorized?(sender)
     message = message.split(" ")
     return if message.empty?
     Tip.find_by_command(message[0]) || Tip.create!(:command => message[0], :text => message[1..-1].join(" "))
@@ -219,7 +219,7 @@ class Bot < Summer::Connection
   end
 
   def forget_command(sender, channel, message, opts={})
-    return unless authorized?(sender[:nick]) && sender[:nick].downcase == "radar"
+    return unless authorized?(sender)
     message = message.split(" ")
     Tip.find_by_command(message[0]).try(:destroy)
     privmsg("The !#{message[0]} command has been deleted.", channel == me ? sender[:nick] : channel)
@@ -266,7 +266,7 @@ class Bot < Summer::Connection
   alias_method :private_message, :channel_message
 
   def spam_protection(sender, channel, message)
-    return if authorized?(sender[:nick])
+    return if authorized?(sender)
     key = "irc-#{sender[:nick]}"
     count = @redis.get(key)
     unless count
@@ -292,7 +292,7 @@ class Bot < Summer::Connection
   def naughty_word_detection(sender, channel, message)
     bad_words = ["nigger"]
     bad_word = bad_words.detect { |word| message.include?(word) }
-    if bad_word && !authorized?(sender[:nick])
+    if bad_word && !authorized?(sender)
       privmsg("#{sender[:nick]} said #{bad_word} in #{channel}", "#ruby-ops")
     end
   end
@@ -303,7 +303,7 @@ class Bot < Summer::Connection
 
   # Important command for Aeyrix
   def mods_command(sender, channel, message, opts={})
-    return unless authorized?(sender[:nick])
+    return unless authorized?(sender)
     privmsg("baweaver bricker mikecmpbll Necromancer Radar sevenseacat smathy workmad3", channel)
   end
   alias :ops_command :mods_command
@@ -415,8 +415,12 @@ class Bot < Summer::Connection
 
   # Who's there?
 
-  def authorized?(nick)
-    Person.where("nick ILIKE ? AND authorized = ?", nick, true).exists?
+  def staff?(user)
+    user[:hostname].split('@')[1].start_with? "ruby/staff/" # Dangerous on networks that don't cloak like Freenode does.
+  end
+
+  def authorized?(user)
+    staff?(user) || Person.where("nick ILIKE ? AND authorized = ?", user[:nick], true).exists?
   end
 
   def check_username(user, channel)
