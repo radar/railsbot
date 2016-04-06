@@ -45,9 +45,12 @@ ActiveRecord::Schema.define do
   end
   
   create_table :tips, :force => true do |t|
+    t.string :owner #, default: 'Radar'
     t.string :command
     t.text :text
   end
 end
 
 Dir["lib/models/*.rb"].each { |f| require_relative f }
+
+Tip.update_all owner: 'Radar'
