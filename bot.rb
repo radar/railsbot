@@ -219,7 +219,7 @@ class Bot < Summer::Connection
   end
 
   def forget_command(sender, channel, message, opts={})
-    return unless authorized?(sender)
+    return unless staff?(sender)
     message = message.split(" ")
     Tip.find_by_command(message[0]).try(:destroy)
     privmsg("The !#{message[0]} command has been deleted.", channel == me ? sender[:nick] : channel)
