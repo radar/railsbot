@@ -393,7 +393,7 @@ class Bot < Summer::Connection
     channel = Channel.create!(:name => name) if channel.nil?
     person = person(sender[:nick])
     channel.messages.create!(:person => person,
-                             :text => message,
+                             :text => message.force_encoding('utf-8'),
                              :type => type,
                              :hidden => channel.hidden)
   end
