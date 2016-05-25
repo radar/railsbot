@@ -347,7 +347,9 @@ class Bot < Summer::Connection
   end
 
   def quit_event(quitter, message)
-    log(quitter, "", message, "quit")
+    # For some reason, this crashes helpa:
+    # (Quit: http://quassel-irc.org - Bate-papo confortável em qualquer lugar.)
+    log(quitter, "", message.force_encoding('utf-8'), "quit")
   end
 
   private
@@ -393,7 +395,7 @@ class Bot < Summer::Connection
     channel = Channel.create!(:name => name) if channel.nil?
     person = person(sender[:nick])
     channel.messages.create!(:person => person,
-                             :text => message.force_encoding('utf-8'),
+                             :text => message,
                              :type => type,
                              :hidden => channel.hidden)
   end
