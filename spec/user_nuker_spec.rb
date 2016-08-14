@@ -41,4 +41,9 @@ describe UserNuker do
     result = UserNuker.new("karapetyan").is_bad?
     expect(result).to eq(0)
   end
+
+  it "ignazioc is not bad" do
+    result = UserNuker.new("ignazioc").is_bad?
+    expect(result).to eq(0)
+  end
 end

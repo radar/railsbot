@@ -19,7 +19,7 @@ class UserNuker
   end
 
   def excluded?
-    ["pen", "noobfag", "karapetyan", "dudepare"].detect do |n|
+    ["pen", "noobfag", "karapetyan", "dudepare", "ignazioc"].detect do |n|
       name == n || /#{n}_?/.match(name)
     end
   end
