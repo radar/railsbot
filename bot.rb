@@ -282,8 +282,9 @@ class Bot < Summer::Connection
       unless notified
         @redis.set(notified_key, 1)
         @redis.expire(notified_key, 300)
-        message = "#{sender[:nick]} is spamming in #{channel}"
+        message = "#{sender[:nick]} is spamming in #{channel}. They have been muted with extreme prejudice."
         channel = ruby_channel?(channel) ? "#ruby-ops" : "Radar"
+        privmsg("quiet #{channel} #{sender[:nick]}", "chanserv")
         privmsg(message, channel)
       end
     end
