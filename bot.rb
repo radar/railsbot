@@ -356,7 +356,7 @@ class Bot < Summer::Connection
   private
 
   def ruby_channel?(channel)
-    ["#ruby", "#ruby-ops", "#ruby-offtopic", "#ruby-community"].include?(channel)
+    ["#ruby", "#ruby-ops", "#ruby-offtopic", "#ruby-community", "#ruby-banned"].include?(channel)
   end
 
   def tip_me(sender, channel, message)
