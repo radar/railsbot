@@ -19,7 +19,7 @@ class UserNuker
   end
 
   def excluded?
-    ["pen", "noobfag", "karapetyan", "dudepare", "ignazioc"].detect do |n|
+    ["pen", "noobfag", "karapetyan", "dudepare", "ignazioc", "mlkkk"].detect do |n|
       name == n || /#{n}_?/.match(name)
     end
   end
@@ -90,7 +90,7 @@ class UserNuker
 
   # Cleans a name of spaces and other unnecessary characters,
   # and translates to alphabetical characters
-  # 
+  #
   # @param name [String] Original name
   #
   # @return [String] cleaned variant of the name
