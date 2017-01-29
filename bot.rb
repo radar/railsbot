@@ -275,6 +275,13 @@ class Bot < Summer::Connection
       return
     end
 
+    # Key has somehow got a TTL of -1.
+    # I don't know how this happens.
+    if @redis.ttl(key) == -1
+      @redis.del(key)
+      return
+    end
+
     count = @redis.incr(key)
     if count >= 10
       notified_key = "notified-radar-about-#{sender[:nick]}"
