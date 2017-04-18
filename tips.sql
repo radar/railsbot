@@ -181,7 +181,7 @@ COPY tips (id, command, text) FROM stdin;
 171	mlb	Multi-lined blocks should use `do` and `end` rather than curly braces.
 172	example	Please show us an example of what you want.
 173	995	Bundler 1.0.9 is broken with Rubygems 1.5.0 - https://github.com/carlhuda/bundler/issues/995
-174	Scient|wrk	
+174	Scient|wrk
 175	rg1.5.0	RubyGems 1.5.0 is broken with Bundler 1.0.9. Upgrade to Bundler 1.0.10.
 176	why	Please explain why you are trying to do this so we can better understand you.
 177	toolbox	http://ruby-toolbox.com - See lists of the most popular gems for common tasks in Ruby and Rails.
@@ -221,7 +221,7 @@ COPY tips (id, command, text) FROM stdin;
 209	code	We cannot help you with your problem if you don't show us your code. Please put it on http://gist.github.com and give us the URL so we can see it.
 210	backtrace	Please show us the backtrace for that error you're getting in a Gist: http://gist.github.com
 211	||=	http://www.rubyinside.com/what-rubys-double-pipe-or-equals-really-does-5488.html
-212	Retistic	
+212	Retistic
 213	cedar	Rails 3.1 on Heroku (Cedar stack) - http://devcenter.heroku.com/articles/rails31_heroku_cedar
 214	learn	How to learn Ruby and Rails - http://astonj.com/tech/best-way-to-learn-ruby-rails/
 215	care	Care reserves depleted. Please come back later.
@@ -414,4 +414,5 @@ COPY tips (id, command, text) FROM stdin;
 406	LART	Definition: Luser Attitude Readjustment Tool, to lart someone, use !lart.
 407	offtopic	Your question is considered off topic for #rubyonrails, you'll have to ask in a different chatroom.
 408	querying	http://guides.rubyonrails.org/active_record_querying.html - ActiveRecord Querying Guide by Ryan Bigg
+409	goodnight	Good night {nick}! :)
 \.
