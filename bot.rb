@@ -400,7 +400,7 @@ class Bot < Summer::Connection
   def log(sender, channel, message, type='message')
     name = channel.gsub("#", '')
     channel = Channel.where("NAME ILIKE ?", name).first
-    channel = Channel.create!(:name => name) if channel.nil?
+    channel = Channel.create!(:name => name, hidden: true) if channel.nil?
     person = person(sender[:nick])
     channel.messages.create!(:person => person,
                              :text => message,
