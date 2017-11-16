@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/radar/summer.git
-  revision: b25b17565ea16c11620e6e7d382e1c4d353a319f
+  revision: eaa8bd7c37f2156a655ff7aebf8ed945ad40a1a2
   branch: master
   specs:
     summer (1.0.0)
@@ -9,31 +9,32 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
-    activemodel (4.2.6)
-      activesupport (= 4.2.6)
+    activemodel (4.2.10)
+      activesupport (= 4.2.10)
       builder (~> 3.1)
-    activerecord (4.2.6)
-      activemodel (= 4.2.6)
-      activesupport (= 4.2.6)
+    activerecord (4.2.10)
+      activemodel (= 4.2.10)
+      activesupport (= 4.2.10)
       arel (~> 6.0)
-    activesupport (4.2.6)
+    activesupport (4.2.10)
       i18n (~> 0.7)
-      json (~> 1.7, >= 1.7.7)
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    arel (6.0.3)
-    builder (3.2.2)
+    arel (6.0.4)
+    builder (3.2.3)
     coderay (1.1.0)
+    concurrent-ruby (1.0.5)
     diff-lcs (1.2.5)
     httparty (0.13.1)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
-    i18n (0.7.0)
+    i18n (0.9.1)
+      concurrent-ruby (~> 1.0)
     json (1.8.6)
     method_source (0.8.2)
     mini_portile (0.6.0)
-    minitest (5.8.4)
+    minitest (5.10.3)
     multi_xml (0.5.5)
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
@@ -57,16 +58,16 @@ GEM
       rspec-support (~> 3.3.0)
     rspec-support (3.3.0)
     slop (3.6.0)
-    thread_safe (0.3.5)
-    tzinfo (1.2.2)
+    thread_safe (0.3.6)
+    tzinfo (1.2.4)
       thread_safe (~> 0.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord (= 4.2.6)
-  activesupport (= 4.2.6)
+  activerecord (~> 4.2)
+  activesupport (~> 4.2)
   httparty
   nokogiri
   pg
@@ -76,4 +77,4 @@ DEPENDENCIES
   summer!
 
 BUNDLED WITH
-   1.13.7
+   1.16.0

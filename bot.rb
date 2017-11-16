@@ -334,6 +334,13 @@ class Bot < Summer::Connection
     privmsg("!pong", sender[:nick])
   end
 
+  def update_command(sender, channel, message, opts={})
+    return unless sender[:nick].downcase == "radar"
+    privmsg("Updating!", sender[:nick])
+    quit("Be right back, just putting on a fresh face")
+    exec "./update.sh"
+  end
+
   def mode_event(sender, channel, *mode)
     log(sender, channel, mode.join(" "), "mode")
   end
