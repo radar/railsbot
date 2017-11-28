@@ -26,7 +26,8 @@ class UserNuker
       "dudepare",
       "ignazioc",
       "mlkkk",
-      "paulgafton"
+      "paulgafton",
+      "wolakkk"
     ].detect do |n|
       name == n || /#{n}_?/.match(name)
     end
