@@ -10,5 +10,6 @@ gem 'pg'
 gem 'redis'
 
 group :development do
+  gem 'pry'
   gem 'rspec'
 end

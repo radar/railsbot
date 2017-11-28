@@ -6,6 +6,7 @@ require 'json'
 require 'httparty'
 require 'nokogiri'
 require 'redis'
+require 'date'
 
 require 'lib/user_nuker'
 
@@ -95,20 +96,21 @@ class Bot < Summer::Connection
     nick = opts[:directed_at] if nick.nil? || nick.empty?
 
     p = Person.find_insensitive(nick)
-    if p
-      if p.messages.exists?
-        first_message_date = p.messages.order("id ASC").first.created_at.to_date
-        first_log_date = Message.order(:id).first.created_at.to_date
-        duration = (Date.today - first_message_date).to_i
-        message =  "I first saw #{nick} on #{first_message_date}. They've been around now for #{duration} days."
-        if first_message_date == first_log_date
-          message += " However, this was the first day I started logging, so they could've been around longer than that."
-        end
-      else
-        message = "I know that name, but I don't know whenfrom. They haven't been around for quite a while."
+    unless p
+      privmsg("Who is #{nick}?", reply_to)
+      return
+    end
+
+    if p.messages.exists?
+      first_message_date = p.messages.order("id ASC").first.created_at.to_date
+      first_log_date = Date.parse("2012-09-01")
+      duration = (Date.today - first_message_date).to_i
+      message =  "I first saw #{nick} on #{first_message_date}. They've been around now for #{duration} days."
+      if first_message_date == first_log_date
+        message += " However, this was the first day I started logging, so they could've been around longer than that."
       end
     else
-      message = "Who is #{nick}?"
+      message = "I know that name, but I don't know whenfrom. They haven't been around for quite a while."
     end
 
     privmsg(message, reply_to)
