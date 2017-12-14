@@ -22,7 +22,7 @@ class UserNuker
     [
       "pen",
       "noobfag",
-      "karapetyan",
+      "karape",
       "dudepare",
       "ignazioc",
       "mlkkk",
