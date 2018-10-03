@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'active_record'
+
+p Dir["../lib/models/**/*.rb"]
+
+Dir[File.dirname(__FILE__) + "/../lib/models/**/*.rb"].map { |f| File.expand_path(f) }.each { |f| require f }
+
+config = YAML::load_file("config/summer.yml")
+ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || config['database'])
+ActiveRecord::Base.logger = Logger.new(STDOUT)
+
+require 'pry'
+Pry.start
