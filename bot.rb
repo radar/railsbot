@@ -7,6 +7,7 @@ require 'httparty'
 require 'nokogiri'
 require 'redis'
 require 'date'
+require 'pg'
 
 require 'lib/user_nuker'
 

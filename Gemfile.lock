@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/radar/summer.git
-  revision: eaa8bd7c37f2156a655ff7aebf8ed945ad40a1a2
+  revision: 949c303bd7e8ea078d0398007d866f753c3dfcb2
   branch: master
   specs:
     summer (1.0.0)
@@ -9,65 +9,59 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
-    activemodel (4.2.10)
-      activesupport (= 4.2.10)
-      builder (~> 3.1)
-    activerecord (4.2.10)
-      activemodel (= 4.2.10)
-      activesupport (= 4.2.10)
-      arel (~> 6.0)
-    activesupport (4.2.10)
-      i18n (~> 0.7)
+    activemodel (5.2.1)
+      activesupport (= 5.2.1)
+    activerecord (5.2.1)
+      activemodel (= 5.2.1)
+      activesupport (= 5.2.1)
+      arel (>= 9.0)
+    activesupport (5.2.1)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (>= 0.7, < 2)
       minitest (~> 5.1)
-      thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    arel (6.0.4)
-    builder (3.2.3)
-    coderay (1.1.0)
+    arel (9.0.0)
+    coderay (1.1.2)
     concurrent-ruby (1.0.5)
-    diff-lcs (1.2.5)
-    httparty (0.13.1)
-      json (~> 1.8)
+    diff-lcs (1.3)
+    httparty (0.16.2)
       multi_xml (>= 0.5.2)
-    i18n (0.9.1)
+    i18n (1.1.0)
       concurrent-ruby (~> 1.0)
-    json (1.8.6)
-    method_source (0.8.2)
-    mini_portile (0.6.0)
-    minitest (5.10.3)
-    multi_xml (0.5.5)
-    nokogiri (1.6.3.1)
-      mini_portile (= 0.6.0)
-    pg (0.17.1)
-    pry (0.10.1)
+    method_source (0.9.0)
+    mini_portile2 (2.3.0)
+    minitest (5.11.3)
+    multi_xml (0.6.0)
+    nokogiri (1.8.4)
+      mini_portile2 (~> 2.3.0)
+    pg (1.1.3)
+    pry (0.11.3)
       coderay (~> 1.1.0)
-      method_source (~> 0.8.1)
-      slop (~> 3.4)
-    redis (3.2.1)
-    rspec (3.3.0)
-      rspec-core (~> 3.3.0)
-      rspec-expectations (~> 3.3.0)
-      rspec-mocks (~> 3.3.0)
-    rspec-core (3.3.2)
-      rspec-support (~> 3.3.0)
-    rspec-expectations (3.3.1)
+      method_source (~> 0.9.0)
+    redis (4.0.2)
+    rspec (3.8.0)
+      rspec-core (~> 3.8.0)
+      rspec-expectations (~> 3.8.0)
+      rspec-mocks (~> 3.8.0)
+    rspec-core (3.8.0)
+      rspec-support (~> 3.8.0)
+    rspec-expectations (3.8.1)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.3.0)
-    rspec-mocks (3.3.2)
+      rspec-support (~> 3.8.0)
+    rspec-mocks (3.8.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.3.0)
-    rspec-support (3.3.0)
-    slop (3.6.0)
+      rspec-support (~> 3.8.0)
+    rspec-support (3.8.0)
     thread_safe (0.3.6)
-    tzinfo (1.2.4)
+    tzinfo (1.2.5)
       thread_safe (~> 0.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord (~> 4.2)
-  activesupport (~> 4.2)
+  activerecord (~> 5.2)
+  activesupport (~> 5.2)
   httparty
   nokogiri
   pg
@@ -77,4 +71,4 @@ DEPENDENCIES
   summer!
 
 BUNDLED WITH
-   1.16.0
+   1.16.5
