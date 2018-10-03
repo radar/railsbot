@@ -13,4 +13,4 @@ owner: "radar"
 auto_rejoin: true
 database:
   adapter: postgresql
-  database: gitpilot
+  database: railsbot
