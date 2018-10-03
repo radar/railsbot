@@ -8,6 +8,7 @@ channels:
   - "#spree-dev"
   - "#Rubyonrails-offtopic"
   - "#ruby"
+  - "#ruby-offtopic"
   - "#rubysherpas"
 owner: "radar"
 auto_rejoin: true
