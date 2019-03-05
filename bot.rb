@@ -376,8 +376,12 @@ class Bot < Summer::Connection
     ["#ruby", "#ruby-ops", "#ruby-offtopic", "#ruby-community", "#ruby-banned"].include?(channel)
   end
 
+  def elixir_channel?(channel)
+    ["#elixir-lang"].include?(channel)
+  end
+
   def tip_me(sender, channel, message)
-    return if ruby_channel?(channel)
+    return if ruby_channel?(channel) || elixir_channel?(channel)
 
     if m = /^(([^:]+)[:|,])?\s?!([^\s]+)\s?(.*)?/.match(message)
       cmd_sym = "#{m[3]}_command".to_sym
