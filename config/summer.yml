@@ -10,6 +10,7 @@ channels:
   - "#ruby"
   - "#ruby-offtopic"
   - "#rubysherpas"
+  - "#elixir-lang"
 owner: "radar"
 auto_rejoin: true
 database:
